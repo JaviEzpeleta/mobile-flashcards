@@ -55,7 +55,7 @@ export default class App extends React.Component {
             style={{
               position: "absolute",
               width: Dimensions.get("window").width,
-              height: 110,
+              height: 100,
               alignItems: "center",
               justifyContent: "center"
             }}

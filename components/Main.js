@@ -67,7 +67,7 @@ export default class Main extends Component {
         renderItem={({ item, key }) => (
           <View>
             {item.key === 1 && <H1 style={text}>Your Decks</H1>}
-            <DeckInList name={item.key} questions={item.questions} />
+            <DeckInList name={item.name} questions={item.questions} />
           </View>
         )}
       />
