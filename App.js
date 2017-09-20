@@ -1,34 +1,75 @@
 import React from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, Text, View, StatusBar, Dimensions } from "react-native"
 import styled from "styled-components/native"
+import { Button, Spinner } from "nachos-ui"
+import Main from "./components/Main"
+import reducer from "./reducers"
+import { createStore } from "redux"
+import { Provider } from "react-redux"
+import { blue, black, white } from "./utils/colors"
+import { Constants } from "expo"
 
-const CenterView = styled.View`
+function MFStatusBar({ backgroundColor, ...props }) {
+  return (
+    <View
+      style={{
+        backgroundColor,
+        height: Constants.statusBarHeight
+      }}
+    >
+      <StatusBar translucent backgroundColor={backgroundColor} {...props} />
+    </View>
+  )
+}
+
+const WholeApp = styled.View`
   flex: 1;
-  align-items: center;
-  justify-content: center;
-  background: #333;
+  backgroundColor: ${blue};
+`
+
+const WholeApp2 = styled.View`
+  height: 40;
+  backgroundColor: ${white};
+  alignItems: flex-end;
+  justifyContent: center;
 `
 
 export default class App extends React.Component {
   render() {
+    const newDeckButton = {
+      width: 160,
+      margin: 5,
+      alignItems: "center",
+      justifyContent: "center",
+      height: 30,
+      backgroundColor: blue,
+      borderRadius: 6
+    }
+
     return (
-      <View style={styles.container}>
-        <CenterView>
-          <Text>TEST HERE!</Text>
-        </CenterView>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Provider store={createStore(reducer)}>
+        <WholeApp>
+          <MFStatusBar backgroundColor={blue} barStyle="dark-content" />
+
+          <View
+            style={{
+              position: "absolute",
+              width: Dimensions.get("window").width,
+              height: 110,
+              alignItems: "center",
+              justifyContent: "center"
+            }}
+          >
+            <Spinner />
+          </View>
+          <Main />
+          <WholeApp2>
+            <Button textStyle={{ color: black }} style={newDeckButton}>
+              + New Deck
+            </Button>
+          </WholeApp2>
+        </WholeApp>
+      </Provider>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-})
