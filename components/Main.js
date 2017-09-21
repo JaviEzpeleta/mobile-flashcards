@@ -11,8 +11,10 @@ import { H1, H2 } from "nachos-ui"
 import { black, red } from "../utils/colors"
 import styled from "styled-components/native"
 import DeckInList from "./DeckInList"
+import { connect } from "react-redux"
+import { saveScrollPosition } from "./../actions"
 
-export default class Main extends Component {
+class Main extends Component {
   state = {
     isRefreshing: false
   }
@@ -28,7 +30,7 @@ export default class Main extends Component {
   }
 
   handleScroll = event => {
-    this.props.setListScrollPosition(event.nativeEvent.contentOffset.y)
+    this.props.saveScrollPosition(event.nativeEvent.contentOffset.y)
   }
 
   hideLoading = () => {
@@ -118,3 +120,15 @@ const styles = StyleSheet.create({
     marginBottom: 0
   }
 })
+
+function mapStateToProps(state) {
+  return {}
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    saveScrollPosition: position => dispatch(saveScrollPosition(position))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main)
