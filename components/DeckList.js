@@ -13,9 +13,28 @@ import { black, red } from "../utils/colors"
 import styled from "styled-components/native"
 import DeckInList from "./DeckInList"
 import { connect } from "react-redux"
-import { saveScrollPosition } from "./../actions"
+import { saveScrollPosition, setDecks } from "./../actions"
+import { objectToArray } from "./../utils/utils"
+import { fetchDecks } from "../utils/api"
 
 class DeckList extends Component {
+  componentDidMount() {
+    //  const { dispatch } = this.props
+    //    fetchDecks().then(decks => dispatch(setDecks(decks)))
+    /*
+      .then(({ entries }) => {
+        if (!entries[timeToString()]) {
+          dispatch(
+            addEntry({
+              [timeToString()]: getDailyReminderValue()
+            })
+          )
+        }
+      })
+      .then(() => this.setState(() => ({ ready: true })))
+    */
+  }
+
   state = {
     isRefreshing: false,
     showUpOpacity: 0
@@ -66,6 +85,9 @@ class DeckList extends Component {
 
     const { isRefreshing } = this.state
 
+    console.log("Logging")
+    console.log(this.props.decks)
+
     return (
       <FlatList
         onScroll={this.handleScroll}
@@ -78,12 +100,13 @@ class DeckList extends Component {
             titleColor="transparent"
           />
         }
-        data={myDecks}
+        data={this.props.decks}
         style={styles.mainList}
         renderItem={({ item, key }) => (
           <View>
             {item.key === 1 && <H1 style={text}>Your Decks</H1>}
             <DeckInList
+              navigation={this.props.navigation}
               deckIndex={item.key}
               name={item.name}
               questions={item.questions}
@@ -102,7 +125,9 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  return {}
+  return {
+    decks: objectToArray(state.decks)
+  }
 }
 
 function mapDispatchToProps(dispatch) {

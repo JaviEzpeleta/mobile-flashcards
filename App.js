@@ -9,12 +9,40 @@ import { blue, black, white } from "./utils/colors"
 import { Constants } from "expo"
 import { connect } from "react-redux"
 import HomeScreen from "./components/HomeScreen"
+import { TabNavigator, StackNavigator } from "react-navigation"
+import NewDeckScreen from "./components/NewDeckScreen"
+import DeckDetailScreen from "./components/DeckDetailScreen"
+
+const MainNavigator = StackNavigator({
+  Home: {
+    screen: HomeScreen,
+    navigationOptions: {
+      header: null
+    }
+  },
+  DeckDetail: {
+    screen: DeckDetailScreen
+  },
+  NewDeck: {
+    screen: NewDeckScreen
+    /*
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple
+      }
+    }
+    */
+  }
+})
 
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={createStore(reducer)}>
-        <HomeScreen />
+        <View style={{ flex: 1 }}>
+          <MainNavigator />
+        </View>
       </Provider>
     )
   }

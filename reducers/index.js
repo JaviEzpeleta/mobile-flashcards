@@ -1,8 +1,29 @@
 import { combineReducers } from "redux"
-import { SAVE_SCROLL_POSITION } from "./../actions"
+import { SAVE_SCROLL_POSITION, SET_DECKS } from "./../actions"
 
-function decks(state = {}, action) {
+function decks(
+  state = {
+    "1": {
+      key: 1,
+      name: "Altético de Madrid",
+      author: "Javi"
+    },
+    "2": {
+      key: 2,
+      name: "Mi Futurro Perro",
+      author: "Javi"
+    },
+    "3": {
+      key: 3,
+      name: "mad4Yu",
+      author: "Javi"
+    }
+  },
+  action
+) {
   switch (action.type) {
+    case SET_DECKS:
+      return action.decks
     default:
       return state
   }

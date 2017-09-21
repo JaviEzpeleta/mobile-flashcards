@@ -16,13 +16,10 @@ export default class DeckInList extends Component {
   }
 
   componentDidMount() {
-    console.log("mounted deck!")
-    console.log(this.props)
     this.springDecks(this.props.deckIndex)
   }
 
   springDecks = deckIndex => {
-    console.log(deckIndex + " here!!")
     Animated.timing(this.state.fadeAnim, {
       toValue: 1,
       duration: 100 * deckIndex
@@ -47,7 +44,7 @@ export default class DeckInList extends Component {
       fontWeight: "700"
     }
 
-    const { name, questions } = this.props
+    const { name, questions, deckIndex } = this.props
 
     return (
       <Animated.View
@@ -56,7 +53,14 @@ export default class DeckInList extends Component {
           { marginBottom: deckInListMarginBottom, opacity: fadeAnim }
         ]}
       >
-        <TouchableOpacity onPress={() => this.animate()}>
+        <TouchableOpacity
+          onPress={() => {
+            this.animate()
+            this.props.navigation.navigate("DeckDetail", {
+              deckIndex: deckIndex
+            })
+          }}
+        >
           <H2 style={cardTitle}>{name}</H2>
           <Text>{questions} questions</Text>
         </TouchableOpacity>

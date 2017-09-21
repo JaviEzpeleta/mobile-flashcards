@@ -20,12 +20,12 @@ function MFStatusBar({ backgroundColor, ...props }) {
   )
 }
 
-const WholeApp = styled.View`
+const HomeScreenStyledComponent = styled.View`
   flex: 1;
   backgroundColor: ${blue};
 `
 
-const WholeApp2 = styled.View`
+const HomeFooterStyledComponent = styled.View`
   height: 40;
   backgroundColor: ${white};
   alignItems: flex-end;
@@ -50,7 +50,7 @@ class HomeScreen extends Component {
     const { listScrollPosition } = this.props
 
     return (
-      <WholeApp>
+      <HomeScreenStyledComponent>
         <MFStatusBar backgroundColor={blue} barStyle="dark-content" />
 
         <View
@@ -64,13 +64,17 @@ class HomeScreen extends Component {
         >
           {listScrollPosition < 0 && <Spinner />}
         </View>
-        <DeckList />
-        <WholeApp2>
-          <Button textStyle={{ color: black }} style={newDeckButton}>
+        <DeckList navigation={this.props.navigation} />
+        <HomeFooterStyledComponent>
+          <Button
+            textStyle={{ color: black }}
+            style={newDeckButton}
+            onPress={() => this.props.navigation.navigate("NewDeck", {})}
+          >
             + New Deck
           </Button>
-        </WholeApp2>
-      </WholeApp>
+        </HomeFooterStyledComponent>
+      </HomeScreenStyledComponent>
     )
   }
 }
@@ -80,3 +84,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(HomeScreen)
+
+//             onPress={() => this.props.navigation.navigate("NewDeckScreen")}

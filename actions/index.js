@@ -1,10 +1,10 @@
-export const RECEIVE_DECKS = "RECEIVE_DECKS"
+export const SET_DECKS = "SET_DECKS"
 export const ADD_DECK = "ADD_DECK"
 export const SAVE_SCROLL_POSITION = "SET_SCROLL_POSITION"
 
-export function receiveDecks(decks) {
+export function setDecks(decks) {
   return {
-    type: RECEIVE_RECKS,
+    type: SET_DECKS,
     decks
   }
 }
