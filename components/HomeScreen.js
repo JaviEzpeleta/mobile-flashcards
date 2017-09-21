@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { StyleSheet, Text, View, StatusBar, Dimensions } from "react-native"
 import styled from "styled-components/native"
 import { Button, Spinner } from "nachos-ui"
-import Main from "./Main"
+import DeckList from "./DeckList"
 import { blue, black, white } from "./../utils/colors"
 import { Constants } from "expo"
 import { connect } from "react-redux"
@@ -64,7 +64,7 @@ class HomeScreen extends Component {
         >
           {listScrollPosition < 0 && <Spinner />}
         </View>
-        <Main />
+        <DeckList />
         <WholeApp2>
           <Button textStyle={{ color: black }} style={newDeckButton}>
             + New Deck

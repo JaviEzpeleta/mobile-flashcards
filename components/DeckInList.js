@@ -11,24 +11,36 @@ import { H1, H2 } from "nachos-ui"
 
 export default class DeckInList extends Component {
   state = {
-    fadeAnim: new Animated.Value(1) // Initial value for opacity: 0
+    deckInListMarginBottom: new Animated.Value(200),
+    fadeAnim: new Animated.Value(0) // Initial value for opacity: 0
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.log("mounted deck!")
+    console.log(this.props)
+    this.springDecks(this.props.deckIndex)
+  }
+
+  springDecks = deckIndex => {
+    console.log(deckIndex + " here!!")
+    Animated.timing(this.state.fadeAnim, {
+      toValue: 1,
+      duration: 100 * deckIndex
+    }).start()
+    Animated.spring(this.state.deckInListMarginBottom, {
+      toValue: 0,
+      duration: 500
+    }).start()
+  }
 
   animate = () => {
-    console.log("animating!")
-    Animated.timing(
-      // Animate over time
-      this.state.fadeAnim, // The animated value to drive
-      {
-        toValue: 0, // Animate to opacity: 1 (opaque)
-        duration: 1000 // Make it take a while
-      }
-    ).start()
+    Animated.timing(this.state.fadeAnim, {
+      toValue: 0,
+      duration: 250
+    }).start()
   }
   render() {
-    let { fadeAnim } = this.state
+    let { fadeAnim, deckInListMarginBottom } = this.state
 
     const cardTitle = {
       color: black,
@@ -38,7 +50,12 @@ export default class DeckInList extends Component {
     const { name, questions } = this.props
 
     return (
-      <Animated.View style={[styles.card, { opacity: fadeAnim }]}>
+      <Animated.View
+        style={[
+          styles.card,
+          { marginBottom: deckInListMarginBottom, opacity: fadeAnim }
+        ]}
+      >
         <TouchableOpacity onPress={() => this.animate()}>
           <H2 style={cardTitle}>{name}</H2>
           <Text>{questions} questions</Text>

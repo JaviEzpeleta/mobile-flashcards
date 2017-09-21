@@ -5,7 +5,8 @@ import {
   StyleSheet,
   FlatList,
   ScrollView,
-  RefreshControl
+  RefreshControl,
+  Animated
 } from "react-native"
 import { H1, H2 } from "nachos-ui"
 import { black, red } from "../utils/colors"
@@ -14,9 +15,17 @@ import DeckInList from "./DeckInList"
 import { connect } from "react-redux"
 import { saveScrollPosition } from "./../actions"
 
-class Main extends Component {
+class DeckList extends Component {
   state = {
-    isRefreshing: false
+    isRefreshing: false,
+    showUpOpacity: 0
+  }
+
+  animate = () => {
+    Animated.timing(this.state.showUpOpacity, {
+      toValue: 1,
+      duration: 250
+    }).start()
   }
 
   refresh = () => {
@@ -74,7 +83,11 @@ class Main extends Component {
         renderItem={({ item, key }) => (
           <View>
             {item.key === 1 && <H1 style={text}>Your Decks</H1>}
-            <DeckInList name={item.name} questions={item.questions} />
+            <DeckInList
+              deckIndex={item.key}
+              name={item.name}
+              questions={item.questions}
+            />
           </View>
         )}
       />
@@ -82,39 +95,6 @@ class Main extends Component {
   }
 }
 const styles = StyleSheet.create({
-  item: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: 30,
-    margin: 2,
-    borderColor: "#2a4944",
-    borderWidth: 1,
-    backgroundColor: "#d2f7f1"
-  },
-  container: {
-    backgroundColor: "transparent",
-    paddingLeft: 20,
-    paddingRight: 20
-  },
-  viewContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "flex-start",
-    flex: 1
-  },
-  iconText: {
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingTop: 15,
-    paddingBottom: 15
-  },
-  goalName: {
-    textAlign: "center",
-    marginTop: 40,
-    marginBottom: 10,
-    fontSize: 20
-  },
   mainList: {
     paddingBottom: 130,
     marginBottom: 0
@@ -131,4 +111,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main)
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList)
