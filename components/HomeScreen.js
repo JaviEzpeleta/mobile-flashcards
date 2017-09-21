@@ -3,9 +3,10 @@ import { StyleSheet, Text, View, StatusBar, Dimensions } from "react-native"
 import styled from "styled-components/native"
 import { Button, Spinner } from "nachos-ui"
 import DeckList from "./DeckList"
-import { blue, black, white } from "./../utils/colors"
+import { blue, black, white, red } from "./../utils/colors"
 import { Constants } from "expo"
 import { connect } from "react-redux"
+import { clearAll } from "./../utils/api"
 
 function MFStatusBar({ backgroundColor, ...props }) {
   return (
@@ -37,6 +38,18 @@ class HomeScreen extends Component {
   }
 
   render() {
+    const deleteDecksButton = {
+      alignItems: "center",
+      justifyContent: "center",
+      position: "absolute",
+      backgroundColor: red,
+      borderRadius: 6,
+      top: -15,
+      left: -370,
+      width: 190,
+      height: 30
+    }
+
     const newDeckButton = {
       width: 160,
       margin: 5,
@@ -72,6 +85,13 @@ class HomeScreen extends Component {
             onPress={() => this.props.navigation.navigate("NewDeck", {})}
           >
             + New Deck
+          </Button>
+          <Button
+            textStyle={{ color: white }}
+            style={deleteDecksButton}
+            onPress={() => clearAll()}
+          >
+            + Delete All Decks
           </Button>
         </HomeFooterStyledComponent>
       </HomeScreenStyledComponent>
