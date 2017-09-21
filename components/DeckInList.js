@@ -12,7 +12,8 @@ import { H1, H2 } from "nachos-ui"
 export default class DeckInList extends Component {
   state = {
     deckInListMarginBottom: new Animated.Value(200),
-    fadeAnim: new Animated.Value(0) // Initial value for opacity: 0
+    fadeAnim: new Animated.Value(0), // Initial value for opacity: 0
+    grow: new Animated.Value(1)
   }
 
   componentDidMount() {
@@ -31,13 +32,15 @@ export default class DeckInList extends Component {
   }
 
   animate = () => {
-    Animated.timing(this.state.fadeAnim, {
-      toValue: 0,
+    /* disabled for now.. not working as I would expect...
+    Animated.timing(this.state.grow, {
+      toValue: 100,
       duration: 250
     }).start()
+    */
   }
   render() {
-    let { fadeAnim, deckInListMarginBottom } = this.state
+    let { fadeAnim, deckInListMarginBottom, grow } = this.state
 
     const cardTitle = {
       color: black,
@@ -50,15 +53,25 @@ export default class DeckInList extends Component {
       <Animated.View
         style={[
           styles.card,
-          { marginBottom: deckInListMarginBottom, opacity: fadeAnim }
+          {
+            marginBottom: deckInListMarginBottom,
+            transform: [{ scale: grow }],
+            opacity: fadeAnim
+          }
         ]}
       >
         <TouchableOpacity
           onPress={() => {
             this.animate()
-            this.props.navigation.navigate("DeckDetail", {
-              deckIndex: deckIndex
-            })
+            this.props.navigation.navigate(
+              "DeckDetail",
+              {
+                deckIndex: deckIndex
+              },
+              {
+                onGoBack: () => console.log("Will go back from nextComponent")
+              }
+            )
           }}
         >
           <H2 style={cardTitle}>{name}</H2>
