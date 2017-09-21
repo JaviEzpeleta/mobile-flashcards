@@ -1,14 +1,31 @@
 import { AsyncStorage } from "react-native"
+import { generateId } from "./utils"
 
 export function fetchDecks() {
   return AsyncStorage.getItem("decks")
 }
 
 export function addDeck({ name }) {
-  let uuid = "123"
-  let decks = fetchDecks()
-  decks.mergeItem({ key: uuid, name: name })
-  return AsyncStorage.setItem("decks", decks)
+  let id = generateId()
+  fetchDecks()
+    .then(decks => {
+      console.log(id)
+      if (decks == null) {
+        console.log("case 1")
+        let decks = []
+        decks[id] = { key: id, name: name, author: "Javi" }
+        return AsyncStorage.setItem("decks", JSON.stringify(decks))
+      } else {
+        decks = JSON.parse(decks)
+        console.log("case 2")
+        console.log("decks that I have")
+        console.log(decks)
+      }
+    })
+    .catch(e => {
+      console.log(e)
+      console.log("catched here!")
+    })
 }
 /*
 export function removeEntry(key) {

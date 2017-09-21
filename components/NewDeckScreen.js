@@ -3,11 +3,14 @@ import { Text, View, StyleSheet, TextInput, Animated } from "react-native"
 import { H4, Button, Bubble } from "nachos-ui"
 import styled from "styled-components/native"
 import { black, white, blue } from "./../utils/colors"
+import { connect } from "react-redux"
+import * as API from "./../utils/api"
+import { addDeck } from "./../actions"
 
 /*TODO: animate the «can't be empty» Bubble,
   when it comes...and when it goes too! */
 
-export default class NewDeckScreen extends Component {
+class NewDeckScreen extends Component {
   state = {
     newName: "",
     emptyFieldError: false
@@ -17,6 +20,8 @@ export default class NewDeckScreen extends Component {
     newName = this.state.newName.trim()
     if (newName === "") {
       this.setState({ emptyFieldError: true })
+    } else {
+      this.props.createDeck(newName)
     }
   }
 
@@ -92,3 +97,14 @@ const NewDeckSubmitButtonStyledComponent = styled.View`
   alignItems: flex-end;
   justifyContent: flex-start;
 `
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createDeck: deckName => {
+      API.addDeck(deckName)
+      dispatch(addDeck(deckName))
+    }
+  }
+}
+
+export default connect(false, mapDispatchToProps)(NewDeckScreen)

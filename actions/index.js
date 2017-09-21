@@ -9,10 +9,10 @@ export function setDecks(decks) {
   }
 }
 
-export function addDeck(deck) {
+export function addDeck(deckName) {
   return {
     type: ADD_DECK,
-    deck
+    deckName
   }
 }
 

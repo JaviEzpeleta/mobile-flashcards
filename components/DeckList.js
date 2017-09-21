@@ -21,7 +21,15 @@ import { fetchDecks } from "../utils/api"
 class DeckList extends Component {
   componentDidMount() {
     //  const { dispatch } = this.props
-    //    fetchDecks().then(decks => dispatch(setDecks(decks)))
+    fetchDecks()
+      .then(decks => {
+        console.log(decks)
+        //  dispatch(setDecks(decks)))
+      })
+      .catch(e => {
+        console.log("HOME EXCEPTIOn")
+        console.log(e)
+      })
     /*
       .then(({ entries }) => {
         if (!entries[timeToString()]) {

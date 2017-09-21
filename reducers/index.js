@@ -1,5 +1,6 @@
 import { combineReducers } from "redux"
-import { SAVE_SCROLL_POSITION, SET_DECKS } from "./../actions"
+import { SAVE_SCROLL_POSITION, SET_DECKS, ADD_DECK } from "./../actions"
+import { generateId } from "./../utils/utils"
 
 function decks(
   state = {
@@ -26,6 +27,16 @@ function decks(
   switch (action.type) {
     case SET_DECKS:
       return action.decks
+    case ADD_DECK:
+      let id = generateId()
+      let newDeck = {
+        key: id,
+        name: action.deckName,
+        author: "Javi"
+      }
+      let newState = state
+      newState[id] = newDeck
+      return newState
     default:
       return state
   }
