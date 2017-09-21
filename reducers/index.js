@@ -27,6 +27,7 @@ function decks(
   switch (action.type) {
     case SET_DECKS:
       return action.decks
+      /*
     case ADD_DECK:
       let id = generateId()
       let newDeck = {
@@ -37,6 +38,7 @@ function decks(
       let newState = state
       newState[id] = newDeck
       return newState
+      */
     default:
       return state
   }

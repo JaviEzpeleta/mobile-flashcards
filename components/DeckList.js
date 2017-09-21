@@ -16,32 +16,18 @@ import DeckInList from "./DeckInList"
 import { connect } from "react-redux"
 import { saveScrollPosition, setDecks } from "./../actions"
 import { objectToArray } from "./../utils/utils"
-import { fetchDecks } from "../utils/api"
+import { fetchDecks, addDeck, clearAll } from "../utils/api"
 
 class DeckList extends Component {
   componentDidMount() {
-    //  const { dispatch } = this.props
+    // clearAll()
     fetchDecks()
       .then(decks => {
-        console.log(decks)
-        //  dispatch(setDecks(decks)))
+        this.props.setDecks(decks)
       })
       .catch(e => {
-        console.log("HOME EXCEPTIOn")
         console.log(e)
       })
-    /*
-      .then(({ entries }) => {
-        if (!entries[timeToString()]) {
-          dispatch(
-            addEntry({
-              [timeToString()]: getDailyReminderValue()
-            })
-          )
-        }
-      })
-      .then(() => this.setState(() => ({ ready: true })))
-    */
   }
 
   state = {
@@ -84,8 +70,6 @@ class DeckList extends Component {
 
     const { decks } = this.props
     const { isRefreshing } = this.state
-    console.log("Logging")
-    console.log(this.props.decks)
 
     if (decks.length > 0) {
       return (
@@ -135,6 +119,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    setDecks: decks => dispatch(setDecks(decks)),
     saveScrollPosition: position => dispatch(saveScrollPosition(position))
   }
 }

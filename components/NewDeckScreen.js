@@ -5,7 +5,7 @@ import styled from "styled-components/native"
 import { black, white, blue } from "./../utils/colors"
 import { connect } from "react-redux"
 import * as API from "./../utils/api"
-import { addDeck } from "./../actions"
+import { setDecks } from "./../actions"
 
 /*TODO: animate the «can't be empty» Bubble,
   when it comes...and when it goes too! */
@@ -98,11 +98,23 @@ const NewDeckSubmitButtonStyledComponent = styled.View`
   justifyContent: flex-start;
 `
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch, { navigation }) {
   return {
     createDeck: deckName => {
       API.addDeck(deckName)
-      dispatch(addDeck(deckName))
+        .then(() => {
+          API.fetchDecks()
+            .then(decks => {
+              dispatch(setDecks(decks))
+              navigation.goBack()
+            })
+            .catch(e => {
+              console.log(e)
+            })
+        })
+        .catch(e => {
+          console.log(e)
+        })
     }
   }
 }
