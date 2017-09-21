@@ -27,6 +27,10 @@ export default class Main extends Component {
     )
   }
 
+  handleScroll = event => {
+    this.props.setListScrollPosition(event.nativeEvent.contentOffset.y)
+  }
+
   hideLoading = () => {
     this.setState({ isRefreshing: false })
   }
@@ -53,6 +57,7 @@ export default class Main extends Component {
 
     return (
       <FlatList
+        onScroll={this.handleScroll}
         refreshControl={
           <RefreshControl
             refreshing={this.state.isRefreshing}

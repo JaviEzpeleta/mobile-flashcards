@@ -35,6 +35,12 @@ const WholeApp2 = styled.View`
 `
 
 export default class App extends React.Component {
+  state = {
+    listScrollPosition: 0
+  }
+  setListScrollPosition = position => {
+    this.setState({ listScrollPosition: position })
+  }
   render() {
     const newDeckButton = {
       width: 160,
@@ -45,6 +51,8 @@ export default class App extends React.Component {
       backgroundColor: blue,
       borderRadius: 6
     }
+
+    const { listScrollPosition } = this.state
 
     return (
       <Provider store={createStore(reducer)}>
@@ -60,9 +68,9 @@ export default class App extends React.Component {
               justifyContent: "center"
             }}
           >
-            <Spinner />
+            {listScrollPosition < 0 && <Spinner />}
           </View>
-          <Main />
+          <Main setListScrollPosition={this.setListScrollPosition} />
           <WholeApp2>
             <Button textStyle={{ color: black }} style={newDeckButton}>
               + New Deck
