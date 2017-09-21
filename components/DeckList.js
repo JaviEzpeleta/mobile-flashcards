@@ -11,6 +11,7 @@ import {
 import { H1, H2 } from "nachos-ui"
 import { black, red } from "../utils/colors"
 import styled from "styled-components/native"
+import NoDecksScreen from "./NoDecksScreen"
 import DeckInList from "./DeckInList"
 import { connect } from "react-redux"
 import { saveScrollPosition, setDecks } from "./../actions"
@@ -73,48 +74,42 @@ class DeckList extends Component {
       fontWeight: "700"
     }
 
-    const myDecks = [
-      { key: 1, name: "React Native", questions: 8 },
-      { key: 2, name: "Atlético de Madrid", questions: 12 },
-      { key: 3, name: "jQuery", questions: 28 },
-      { key: 4, name: "CSS Modules", questions: 30 },
-      { key: 5, name: "Javascript", questions: 10 },
-      { key: 6, name: "JavEzp", questions: 10 },
-      { key: 7, name: "mad4yu", questions: 10 }
-    ]
-
+    const { decks } = this.props
     const { isRefreshing } = this.state
-
     console.log("Logging")
     console.log(this.props.decks)
 
-    return (
-      <FlatList
-        onScroll={this.handleScroll}
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.isRefreshing}
-            onRefresh={this.refresh}
-            title="Refreshing..."
-            tintColor="transparent"
-            titleColor="transparent"
-          />
-        }
-        data={this.props.decks}
-        style={styles.mainList}
-        renderItem={({ item, key }) => (
-          <View>
-            {item.key === 1 && <H1 style={text}>Your Decks</H1>}
-            <DeckInList
-              navigation={this.props.navigation}
-              deckIndex={item.key}
-              name={item.name}
-              questions={item.questions}
+    if (decks.length > 0) {
+      return (
+        <FlatList
+          onScroll={this.handleScroll}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefreshing}
+              onRefresh={this.refresh}
+              title="Refreshing..."
+              tintColor="transparent"
+              titleColor="transparent"
             />
-          </View>
-        )}
-      />
-    )
+          }
+          data={decks}
+          style={styles.mainList}
+          renderItem={({ item, key }) => (
+            <View>
+              {item.key === 1 && <H1 style={text}>Your Decks</H1>}
+              <DeckInList
+                navigation={this.props.navigation}
+                deckIndex={item.key}
+                name={item.name}
+                questions={item.questions}
+              />
+            </View>
+          )}
+        />
+      )
+    } else {
+      return <NoDecksScreen />
+    }
   }
 }
 const styles = StyleSheet.create({

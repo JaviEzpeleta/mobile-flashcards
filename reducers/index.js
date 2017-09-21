@@ -3,6 +3,7 @@ import { SAVE_SCROLL_POSITION, SET_DECKS } from "./../actions"
 
 function decks(
   state = {
+    /*
     "1": {
       key: 1,
       name: "Altético de Madrid",
@@ -18,6 +19,7 @@ function decks(
       name: "mad4Yu",
       author: "Javi"
     }
+    */
   },
   action
 ) {
