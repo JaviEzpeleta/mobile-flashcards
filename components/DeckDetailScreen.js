@@ -20,9 +20,8 @@ class DeckDetailScreen extends Component {
     return (
       <Container>
         <Content>
-          <H2>{deck.name}</H2>
-          <Text>- questions</Text>
-          <Text>{deck.key}</Text>
+          <H1>{deck.name}</H1>
+          <H2>{deck.questions.length} questions</H2>
 
           <Button
             onPress={() =>
@@ -30,7 +29,7 @@ class DeckDetailScreen extends Component {
                 deckKey: key
               })}
           >
-            <Text>Add Question to {key}</Text>
+            <Text>Add Question</Text>
           </Button>
         </Content>
 
