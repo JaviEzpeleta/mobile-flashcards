@@ -6,7 +6,8 @@ import DeckList from "./DeckList"
 import { blue, black, white, red } from "./../utils/colors"
 import { Constants } from "expo"
 import { connect } from "react-redux"
-import { clearAll } from "./../utils/api"
+import * as API from "./../utils/api"
+import { setDecks } from "./../actions"
 
 function MFStatusBar({ backgroundColor, ...props }) {
   return (
@@ -89,7 +90,9 @@ class HomeScreen extends Component {
           <Button
             textStyle={{ color: white }}
             style={deleteDecksButton}
-            onPress={() => clearAll()}
+            onPress={() => {
+              this.props.clearAll()
+            }}
           >
             + Delete All Decks
           </Button>
@@ -103,6 +106,20 @@ function mapStateToProps(state) {
   return { listScrollPosition: state.scrollPosition }
 }
 
-export default connect(mapStateToProps)(HomeScreen)
+function mapDispatchToProps(dispatch) {
+  return {
+    clearAll: () => {
+      API.clearAll()
+      API.fetchDecks()
+        .then(decks => {
+          dispatch(setDecks(decks))
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
 
 //             onPress={() => this.props.navigation.navigate("NewDeckScreen")}
