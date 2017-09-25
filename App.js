@@ -13,6 +13,7 @@ import { TabNavigator, StackNavigator } from "react-navigation"
 import NewDeckScreen from "./components/NewDeckScreen"
 import NewQuestionScreen from "./components/NewQuestionScreen"
 import DeckDetailScreen from "./components/DeckDetailScreen"
+import GameScene from "./components/GameScene"
 
 const MainNavigator = StackNavigator({
   Home: {
@@ -29,6 +30,17 @@ const MainNavigator = StackNavigator({
   },
   NewDeck: {
     screen: NewDeckScreen
+  },
+  Game: {
+    screen: GameScene,
+    navigationOptions: ({ navigation }) => ({
+      title: `${navigation.state.params.title}`
+    })
+    /*
+    navigationOptions: {
+      header: null
+    }
+    */
   }
 })
 

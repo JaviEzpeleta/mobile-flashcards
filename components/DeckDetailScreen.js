@@ -21,7 +21,7 @@ class DeckDetailScreen extends Component {
       <Container>
         <Content>
           <H1>{deck.name}</H1>
-          <H2>{deck.questions.length} questions</H2>
+          <H2>{deck.questions.length.toString()} questions</H2>
 
           <Button
             onPress={() =>
@@ -35,7 +35,14 @@ class DeckDetailScreen extends Component {
 
         <Footer>
           <FooterTab>
-            <Button full>
+            <Button
+              full
+              onPress={() =>
+                this.props.navigation.navigate("Game", {
+                  deckKey: key,
+                  title: deck.name
+                })}
+            >
               <Text>Start the game!</Text>
             </Button>
           </FooterTab>

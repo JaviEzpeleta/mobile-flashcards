@@ -41,9 +41,6 @@ class NewQuestionScreen extends Component {
     const inputStyle = { marginTop: 15, marginLeft: 15, color: black }
     const { emptyFieldError, question, answer } = this.state
 
-    console.log("INSIDE NEW QUESTION WINDOW")
-    console.log(this.props)
-
     return (
       <View>
         <H4 style={inputStyle}>
