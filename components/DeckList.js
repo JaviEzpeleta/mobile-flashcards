@@ -23,6 +23,8 @@ class DeckList extends Component {
     // clearAll()
     fetchDecks()
       .then(decks => {
+        console.log("LIST OF DECKS")
+        console.log(decks)
         this.props.setDecks(decks)
       })
       .catch(e => {
@@ -71,6 +73,9 @@ class DeckList extends Component {
     const { decks } = this.props
     const { isRefreshing } = this.state
 
+    console.log("LIST OF DECKS v2")
+    console.log(decks)
+
     if (decks.length > 0) {
       return (
         <FlatList
@@ -86,17 +91,19 @@ class DeckList extends Component {
           }
           data={decks}
           style={styles.mainList}
-          renderItem={({ item, key }) => (
-            <View>
-              {item.key === 1 && <H1 style={text}>Your Decks</H1>}
-              <DeckInList
-                navigation={this.props.navigation}
-                deckIndex={item.key}
-                name={item.name}
-                questions={item.questions}
-              />
-            </View>
-          )}
+          renderItem={({ item, key }) => {
+            return (
+              <View>
+                {item.key === 1 && <H1 style={text}>Your Decks</H1>}
+                <DeckInList
+                  navigation={this.props.navigation}
+                  deckIndex={item.key}
+                  name={item.name}
+                  questions={item.questions.length}
+                />
+              </View>
+            )
+          }}
         />
       )
     } else {

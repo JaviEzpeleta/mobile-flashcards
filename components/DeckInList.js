@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from "react-native"
 import { black, red } from "../utils/colors"
-import { H1, H2 } from "nachos-ui"
+import { H2 } from "nachos-ui"
 
 export default class DeckInList extends Component {
   state = {

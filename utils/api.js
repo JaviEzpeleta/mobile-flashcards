@@ -1,7 +1,8 @@
 import { AsyncStorage } from "react-native"
-import { generateId } from "./utils"
+import { generateId, objectToArray } from "./utils"
 
 const DECKS_STORAGE_KEY = "mobile-flashcards:decks"
+const QUESTIONS_STORAGE_KEY = "mobile-flashcards:questions"
 
 export const clearAll = () => {
   AsyncStorage.clear()
@@ -17,8 +18,25 @@ export const clearAll = () => {
 }
 
 export function fetchDecks() {
-  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(decks =>
-    JSON.parse(decks)
+  return AsyncStorage.getItem(DECKS_STORAGE_KEY).then(decks => {
+    return fetchQuestions().then(questions => {
+      decks = JSON.parse(decks)
+      let decksArray = objectToArray(decks)
+      decksArray.map(function(deck) {
+        let questionsArray = objectToArray(questions)
+        let questionsForThisDeck = questionsArray.filter(question => {
+          return question.deckId === deck.key
+        })
+        decks[deck.key].questions = questionsForThisDeck
+      }, this)
+      return decks
+    })
+  })
+}
+
+export function fetchQuestions() {
+  return AsyncStorage.getItem(QUESTIONS_STORAGE_KEY).then(questions =>
+    JSON.parse(questions)
   )
 }
 
@@ -26,13 +44,12 @@ export function addDeck(name) {
   let id = generateId()
   let newDeck = {
     name: name,
-    key: id
+    key: id,
+    created: new Date().getTime()
   }
 
   return fetchDecks().then(decks => {
     if (decks) {
-      console.log("CASE 1")
-
       return AsyncStorage.mergeItem(
         DECKS_STORAGE_KEY,
         JSON.stringify({
@@ -40,7 +57,6 @@ export function addDeck(name) {
         })
       )
     } else {
-      console.log("CASE 2")
       return AsyncStorage.setItem(
         DECKS_STORAGE_KEY,
         JSON.stringify({
@@ -57,5 +73,34 @@ export function removeDeck(key) {
     decks[key] = undefined
     delete decks[key]
     AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(decks))
+  })
+}
+
+export function addQuestion(question, answer, deckId) {
+  let id = generateId()
+  let newQuestion = {
+    question: question,
+    answer: answer,
+    deckId: deckId,
+    created: new Date().getTime(),
+    key: id
+  }
+
+  return fetchQuestions().then(questions => {
+    if (questions) {
+      return AsyncStorage.mergeItem(
+        QUESTIONS_STORAGE_KEY,
+        JSON.stringify({
+          [id]: newQuestion
+        })
+      )
+    } else {
+      return AsyncStorage.setItem(
+        QUESTIONS_STORAGE_KEY,
+        JSON.stringify({
+          [id]: newQuestion
+        })
+      )
+    }
   })
 }

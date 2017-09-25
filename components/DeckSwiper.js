@@ -17,7 +17,7 @@ import {
 const cards = [
   {
     text: "Card One",
-    name: "One",
+    name: "One lelelele",
     image:
       "https://slack-imgs.com/?c=1&url=https%3A%2F%2Fnativebase.io%2Fassets%2Fimg%2Frsz_nb-cover-og.png"
   },

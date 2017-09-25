@@ -11,6 +11,7 @@ import { connect } from "react-redux"
 import HomeScreen from "./components/HomeScreen"
 import { TabNavigator, StackNavigator } from "react-navigation"
 import NewDeckScreen from "./components/NewDeckScreen"
+import NewQuestionScreen from "./components/NewQuestionScreen"
 import DeckDetailScreen from "./components/DeckDetailScreen"
 
 const MainNavigator = StackNavigator({
@@ -23,16 +24,11 @@ const MainNavigator = StackNavigator({
   DeckDetail: {
     screen: DeckDetailScreen
   },
+  NewQuestion: {
+    screen: NewQuestionScreen
+  },
   NewDeck: {
     screen: NewDeckScreen
-    /*
-    navigationOptions: {
-      headerTintColor: white,
-      headerStyle: {
-        backgroundColor: purple
-      }
-    }
-    */
   }
 })
 
