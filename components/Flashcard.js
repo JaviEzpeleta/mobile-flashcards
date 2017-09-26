@@ -81,7 +81,7 @@ export default class Flashcard extends Component {
           250
         )
       }.bind(this),
-      700
+      300
     )
   }
 
@@ -140,7 +140,9 @@ export default class Flashcard extends Component {
                   </Body>
                 ) : (
                   <Body style={{ padding: 15 }}>
-                    <Text>Question 1 of 6</Text>
+                    <Text>
+                      Question {this.props.current} of {this.props.total}
+                    </Text>
                     <H2
                       style={{
                         marginTop: 15,
@@ -161,7 +163,13 @@ export default class Flashcard extends Component {
                       <Button danger onPress={() => this.showAnswer()}>
                         <Text>I Don't Know</Text>
                       </Button>
-                      <Button success onPress={() => false}>
+                      <Button
+                        success
+                        onPress={() => {
+                          this.props.addPoint()
+                          goNextActions()
+                        }}
+                      >
                         <Text>✔️ I got this! </Text>
                       </Button>
                     </View>
