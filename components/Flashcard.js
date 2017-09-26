@@ -14,6 +14,7 @@ import {
 
 export default class Flashcard extends Component {
   state = {
+    hideCardContent: true,
     showingAnswer: false,
     cardFade: new Animated.Value(0),
     cardScale: new Animated.Value(0),
@@ -55,11 +56,51 @@ export default class Flashcard extends Component {
   componentDidMount = () => {
     this.showCard()
     this.showNextButton()
+    this.showCardContent()
+  }
+
+  showCardContent = () => {
+    this.setState({
+      hideCardContent: false
+    })
+  }
+  hideCardContent = () => {
+    this.setState({
+      hideCardContent: true
+    })
+  }
+
+  componentWillReceiveProps = () => {
+    setTimeout(
+      function() {
+        this.showCard()
+        setTimeout(
+          function() {
+            this.showCardContent()
+          }.bind(this),
+          250
+        )
+      }.bind(this),
+      700
+    )
+  }
+
+  goNextActions = () => {
+    this.hideCardContent()
+    this.removeCard()
+    this.props.goNext()
   }
 
   render() {
-    const { showingAnswer, cardFade, cardScale, nextButtonOpacity } = this.state
+    const {
+      showingAnswer,
+      cardFade,
+      cardScale,
+      nextButtonOpacity,
+      hideCardContent
+    } = this.state
     const { question, answer, goNext } = this.props
+    const { goNextActions } = this
     return (
       <Content style={{ margin: 15, marginTop: 40 }}>
         <Animated.View
@@ -69,64 +110,72 @@ export default class Flashcard extends Component {
           }}
         >
           <Card>
-            <CardItem style={{ height: 460 }}>
-              {showingAnswer ? (
-                <Body style={{ padding: 15 }}>
-                  <Text>Question 1 of 6</Text>
-                  <Text>Answer:</Text>
-                  <H2
-                    style={{
-                      marginTop: 15,
-                      marginBottom: 40
-                    }}
-                  >
-                    {answer}
-                  </H2>
-                </Body>
-              ) : (
-                <Body style={{ padding: 15 }}>
-                  <Text>Question 1 of 6</Text>
-                  <H2
-                    style={{
-                      marginTop: 15,
-                      marginBottom: 40
-                    }}
-                  >
-                    {question}
-                  </H2>
+            {hideCardContent ? (
+              <Body style={{ height: 460 }}>
+                <H1
+                  style={{
+                    marginTop: 120,
+                    height: 140,
+                    lineHeight: 200,
+                    fontSize: 90
+                  }}
+                >
+                  ?
+                </H1>
+              </Body>
+            ) : (
+              <CardItem style={{ height: 460 }}>
+                {showingAnswer ? (
+                  <Body style={{ padding: 15 }}>
+                    <Text>Question 1 of 6</Text>
+                    <Text>Answer:</Text>
+                    <H2
+                      style={{
+                        marginTop: 15,
+                        marginBottom: 40
+                      }}
+                    >
+                      {answer}
+                    </H2>
+                  </Body>
+                ) : (
+                  <Body style={{ padding: 15 }}>
+                    <Text>Question 1 of 6</Text>
+                    <H2
+                      style={{
+                        marginTop: 15,
+                        marginBottom: 40
+                      }}
+                    >
+                      {question}
+                    </H2>
 
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "stretch",
-                      alignSelf: "stretch",
-                      justifyContent: "space-between"
-                    }}
-                  >
-                    <Button danger onPress={() => this.showAnswer()}>
-                      <Text>I Don't Know</Text>
-                    </Button>
-                    <Button success onPress={() => false}>
-                      <Text>✔️ I got this! </Text>
-                    </Button>
-                  </View>
-                </Body>
-              )}
-            </CardItem>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "stretch",
+                        alignSelf: "stretch",
+                        justifyContent: "space-between"
+                      }}
+                    >
+                      <Button danger onPress={() => this.showAnswer()}>
+                        <Text>I Don't Know</Text>
+                      </Button>
+                      <Button success onPress={() => false}>
+                        <Text>✔️ I got this! </Text>
+                      </Button>
+                    </View>
+                  </Body>
+                )}
+              </CardItem>
+            )}
           </Card>
         </Animated.View>
         <Animated.View style={{ opacity: nextButtonOpacity }}>
           <Body style={{ padding: 15 }}>
             <Button
               onPress={() => {
-                this.removeCard()
-                setTimeout(
-                  function() {
-                    this.showCard()
-                  }.bind(this),
-                  500
-                )
-                goNext()
+                goNextActions()
               }}
             >
               <Text>NEXT</Text>
