@@ -9,7 +9,7 @@ export default class FinalGameScene extends Component {
         <H2>
           {this.props.points.toString()} of {this.props.total.toString()}
         </H2>
-        <Button>
+        <Button onPress={() => this.props.resetGame()}>
           <Text>Try it again!</Text>
         </Button>
       </View>

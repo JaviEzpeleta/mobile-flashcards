@@ -17,6 +17,13 @@ class GameScene extends Component {
     })
   }
 
+  resetGame = () => {
+    this.setState({
+      currentQuestion: 0,
+      points: 0
+    })
+  }
+
   addPoint = () => {
     this.setState({
       points: this.state.points + 1
@@ -41,7 +48,11 @@ class GameScene extends Component {
     else
       return (
         <View>
-          <FinalGameScene points={points} total={deck.questions.length} />
+          <FinalGameScene
+            points={points}
+            total={deck.questions.length}
+            resetGame={this.resetGame}
+          />
         </View>
       )
   }
