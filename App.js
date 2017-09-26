@@ -14,6 +14,7 @@ import NewDeckScreen from "./components/NewDeckScreen"
 import NewQuestionScreen from "./components/NewQuestionScreen"
 import DeckDetailScreen from "./components/DeckDetailScreen"
 import GameScene from "./components/GameScene"
+import Flashcard from "./components/Flashcard"
 
 const MainNavigator = StackNavigator({
   Home: {
@@ -49,7 +50,16 @@ export default class App extends React.Component {
     return (
       <Provider store={createStore(reducer)}>
         <View style={{ flex: 1 }}>
-          <MainNavigator />
+          {false && (
+            <Flashcard
+              question="LELELELELELE  UASD SADFU YSDUF YSDUF SDF ?"
+              answer="LD SIDJ IDFG IHDSFG IHDFG "
+              goNext={() => {
+                console.log("ok!")
+              }}
+            />
+          )}
+          {true && <MainNavigator />}
         </View>
       </Provider>
     )

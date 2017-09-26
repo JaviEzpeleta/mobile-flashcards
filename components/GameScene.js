@@ -17,30 +17,22 @@ class GameScene extends Component {
   }
 
   render() {
-    console.log("HOME")
-
     const { deckKey, deck } = this.props
-    console.log(deck)
 
-    return (
-      <View>
-        <Text>GAME SCENE!</Text>
-        {deck.questions[this.state.currentQuestion] ? (
-          <View>
-            <Flashcard
-              question={deck.questions[this.state.currentQuestion].question}
-              answer={deck.questions[this.state.currentQuestion].answer}
-              goNext={this.goNext}
-            />
-          </View>
-        ) : (
-          <View>
-            <FinalGameScene />
-          </View>
-        )}
-        <FinalGameScene />
-      </View>
-    )
+    if (deck.questions[this.state.currentQuestion])
+      return (
+        <Flashcard
+          question={deck.questions[this.state.currentQuestion].question}
+          answer={deck.questions[this.state.currentQuestion].answer}
+          goNext={this.goNext}
+        />
+      )
+    else
+      return (
+        <View>
+          <FinalGameScene />
+        </View>
+      )
   }
 }
 

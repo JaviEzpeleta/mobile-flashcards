@@ -23,8 +23,6 @@ class DeckList extends Component {
     // clearAll()
     fetchDecks()
       .then(decks => {
-        console.log("LIST OF DECKS")
-        console.log(decks)
         this.props.setDecks(decks)
       })
       .catch(e => {
@@ -72,9 +70,6 @@ class DeckList extends Component {
 
     const { decks } = this.props
     const { isRefreshing } = this.state
-
-    console.log("LIST OF DECKS v2")
-    console.log(decks)
 
     if (decks.length > 0) {
       return (
