@@ -3,17 +3,15 @@ import { generateId, objectToArray } from "./utils"
 
 const DECKS_STORAGE_KEY = "mobile-flashcards:decks"
 const QUESTIONS_STORAGE_KEY = "mobile-flashcards:questions"
+const LAST_SCREEN_VISITED_KEY = "mobile-flashcards:lastScreenVisitedKey"
 
 export const clearAll = () => {
   AsyncStorage.clear()
-    .then(() => {
-      console.log("ALL AsyncStorage data cleared!")
-    })
+    .then(() => {})
     .catch(e => {
       console.log(
         "Something went wrong while trying to clear all Storage data:"
       )
-      console.log(e)
     })
 }
 
@@ -32,6 +30,21 @@ export function fetchDecks() {
       return decks
     })
   })
+}
+
+export function saveLastScreenVisited(value, id) {
+  return AsyncStorage.setItem(
+    LAST_SCREEN_VISITED_KEY,
+    JSON.stringify({
+      page: value,
+      id: id
+    })
+  )
+}
+export function getLastScreenVisited() {
+  return AsyncStorage.getItem(LAST_SCREEN_VISITED_KEY).then(item =>
+    JSON.parse(item)
+  )
 }
 
 export function fetchQuestions() {

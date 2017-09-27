@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { View } from "react-native"
 import { connect } from "react-redux"
+import * as API from "./../utils/api"
 import {
   Container,
   Content,
@@ -12,13 +13,25 @@ import {
   Footer,
   FooterTab
 } from "native-base"
+import CustomHeader from "./CustomHeader"
 
 class DeckDetailScreen extends Component {
+  componentDidMount() {
+    API.saveLastScreenVisited("deckDetail", this.props.deck.key)
+  }
+
+  goBack() {
+    API.saveLastScreenVisited("home", false)
+    this.props.navigation.goBack()
+  }
+
   render() {
     const { deck } = this.props
     const key = deck.key
     return (
       <Container>
+        <CustomHeader title={deck.name} goBack={this.goBack} />
+
         <Content>
           <H1>{deck.name}</H1>
           <H2>{deck.questions.length.toString()} questions</H2>
@@ -39,8 +52,7 @@ class DeckDetailScreen extends Component {
               full
               onPress={() =>
                 this.props.navigation.navigate("Game", {
-                  deckKey: key,
-                  title: deck.name
+                  deckKey: key
                 })}
             >
               <Text>Start the game!</Text>

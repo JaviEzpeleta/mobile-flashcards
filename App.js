@@ -16,6 +16,12 @@ import DeckDetailScreen from "./components/DeckDetailScreen"
 import GameScene from "./components/GameScene"
 import Flashcard from "./components/Flashcard"
 
+const Left = goBack => (
+  <TouchableHighlight onPress={goBack}>
+    <Text> THIS SI JAVI</Text>
+  </TouchableHighlight>
+)
+
 const MainNavigator = StackNavigator({
   Home: {
     screen: HomeScreen,
@@ -24,7 +30,10 @@ const MainNavigator = StackNavigator({
     }
   },
   DeckDetail: {
-    screen: DeckDetailScreen
+    screen: DeckDetailScreen,
+    navigationOptions: {
+      header: null
+    }
   },
   NewQuestion: {
     screen: NewQuestionScreen
@@ -35,22 +44,19 @@ const MainNavigator = StackNavigator({
   Game: {
     screen: GameScene,
     navigationOptions: ({ navigation }) => ({
-      title: `${navigation.state.params.title}`
+      title: "Quiz"
     })
-    /*
-    navigationOptions: {
-      header: null
-    }
-    */
   }
 })
 
 export default class App extends React.Component {
   render() {
+    const showFlashCard = false
+
     return (
       <Provider store={createStore(reducer)}>
         <View style={{ flex: 1 }}>
-          {false && (
+          {showFlashCard && (
             <Flashcard
               question="LELELELELELE  UASD SADFU YSDUF YSDUF SDF ?"
               answer="LD SIDJ IDFG IHDSFG IHDFG "
@@ -59,7 +65,7 @@ export default class App extends React.Component {
               }}
             />
           )}
-          {true && <MainNavigator />}
+          {!showFlashCard && <MainNavigator />}
         </View>
       </Provider>
     )

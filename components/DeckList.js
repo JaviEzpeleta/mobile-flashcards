@@ -16,18 +16,37 @@ import DeckInList from "./DeckInList"
 import { connect } from "react-redux"
 import { saveScrollPosition, setDecks } from "./../actions"
 import { objectToArray } from "./../utils/utils"
-import { fetchDecks, addDeck, clearAll } from "../utils/api"
+import {
+  fetchDecks,
+  addDeck,
+  clearAll,
+  getLastScreenVisited
+} from "../utils/api"
 
 class DeckList extends Component {
   componentDidMount() {
+    console.log("THIS IS THE RENDER PART")
+
     // clearAll()
     fetchDecks()
       .then(decks => {
         this.props.setDecks(decks)
+
+        getLastScreenVisited().then(value => {
+          if (value && value.page === "deckDetail") {
+            this.props.navigation.navigate("DeckDetail", {
+              deckIndex: value.id
+            })
+          }
+        })
       })
       .catch(e => {
         console.log(e)
       })
+  }
+
+  componentDidUpdate() {
+    console.log("THIS IS THE UPDATE PART")
   }
 
   state = {

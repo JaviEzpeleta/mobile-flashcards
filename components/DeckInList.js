@@ -63,15 +63,9 @@ export default class DeckInList extends Component {
         <TouchableOpacity
           onPress={() => {
             this.animate()
-            this.props.navigation.navigate(
-              "DeckDetail",
-              {
-                deckIndex: deckIndex
-              },
-              {
-                onGoBack: () => console.log("Will go back from nextComponent")
-              }
-            )
+            this.props.navigation.navigate("DeckDetail", {
+              deckIndex: deckIndex
+            })
           }}
         >
           <H2 style={cardTitle}>{name}</H2>
