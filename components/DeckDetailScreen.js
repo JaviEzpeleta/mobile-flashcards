@@ -11,9 +11,14 @@ import {
   Text,
   Button,
   Footer,
-  FooterTab
+  FooterTab,
+  Header,
+  Body,
+  Icon,
+  Left,
+  Right,
+  Title
 } from "native-base"
-import CustomHeader from "./CustomHeader"
 
 class DeckDetailScreen extends Component {
   componentDidMount() {
@@ -22,7 +27,7 @@ class DeckDetailScreen extends Component {
 
   goBack() {
     API.saveLastScreenVisited("home", false)
-    this.props.navigation.goBack()
+    this.props.navigation.navigate("Home")
   }
 
   render() {
@@ -30,12 +35,21 @@ class DeckDetailScreen extends Component {
     const key = deck.key
     return (
       <Container>
-        <CustomHeader title={deck.name} goBack={this.goBack} />
+        <Header>
+          <Left>
+            <Button transparent onPress={() => this.goBack()}>
+              <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>{deck.name}</Title>
+          </Body>
+          <Right />
+        </Header>
 
         <Content>
           <H1>{deck.name}</H1>
           <H2>{deck.questions.length.toString()} questions</H2>
-
           <Button
             onPress={() =>
               this.props.navigation.navigate("NewQuestion", {
@@ -68,6 +82,7 @@ function mapStateToProps(state, { navigation }) {
   const { deckIndex } = navigation.state.params
 
   return {
+    navigation,
     deckIndex,
     deck: state.decks[deckIndex]
   }

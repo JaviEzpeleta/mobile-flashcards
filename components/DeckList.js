@@ -4,7 +4,6 @@ import {
   View,
   StyleSheet,
   FlatList,
-  ScrollView,
   RefreshControl,
   Animated
 } from "react-native"
@@ -36,6 +35,11 @@ class DeckList extends Component {
           if (value && value.page === "deckDetail") {
             this.props.navigation.navigate("DeckDetail", {
               deckIndex: value.id
+            })
+          }
+          if (value && value.page === "GameScene") {
+            this.props.navigation.navigate("Game", {
+              deckKey: value.id
             })
           }
         })

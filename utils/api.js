@@ -32,12 +32,14 @@ export function fetchDecks() {
   })
 }
 
-export function saveLastScreenVisited(value, id) {
+export function saveLastScreenVisited(value, id, points = 0, currentCard = 0) {
   return AsyncStorage.setItem(
     LAST_SCREEN_VISITED_KEY,
     JSON.stringify({
       page: value,
-      id: id
+      id: id,
+      points: points,
+      currentCard: currentCard
     })
   )
 }
