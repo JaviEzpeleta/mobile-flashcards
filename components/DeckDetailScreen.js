@@ -26,12 +26,10 @@ class DeckDetailScreen extends Component {
   }
 
   goBack() {
-    API.saveLastScreenVisited("home", false)
-    this.props.navigation.navigate("Home")
-  }
-
-  componentDidUpdate() {
-    console.log("UPDATE!! 💚")
+    API.saveLastScreenVisited("home", false).then(() =>
+      this.props.navigation.navigate("Home")
+    )
+    return false
   }
 
   render() {

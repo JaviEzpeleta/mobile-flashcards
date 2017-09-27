@@ -21,6 +21,7 @@
   "dependencies": {
     "@expo/vector-icons": "^5.2.0",
     "expo": "21.0.2",
+    "lottie-react-native": "2.2.7",
     "nachos-ui": "^0.1.2",
     "native-base": "^2.3.2",
     "react": "^16.0.0",

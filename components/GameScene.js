@@ -55,12 +55,16 @@ class GameScene extends Component {
 
     if (this.props.deck.questions.length === this.state.currentQuestion) {
       this.resetGame()
-      this.saveStep()
     }
   }
 
   saveStep = () => {
-    if (this.props.deck.questions.length === this.state.currentQuestion) {
+    /** TODO
+     * : Remove that false!!! **/
+    if (
+      false &&
+      this.props.deck.questions.length === this.state.currentQuestion
+    ) {
       API.saveLastScreenVisited("home", false)
     } else {
       API.saveLastScreenVisited(
@@ -77,9 +81,10 @@ class GameScene extends Component {
   }
 
   goBack() {
-    API.saveLastScreenVisited("home", false)
-    this.props.navigation.navigate("DeckDetail", {
-      deckIndex: this.props.deck.key
+    API.saveLastScreenVisited("home", false).then(() => {
+      this.props.navigation.navigate("DeckDetail", {
+        deckIndex: this.props.deck.key
+      })
     })
   }
 
@@ -118,6 +123,8 @@ class GameScene extends Component {
             points={points}
             total={deck.questions.length}
             resetGame={this.resetGame}
+            deckKey={this.props.deckKey}
+            navigation={this.props.navigation}
           />
         </View>
       )
