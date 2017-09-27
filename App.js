@@ -43,9 +43,9 @@ const MainNavigator = StackNavigator({
   },
   Game: {
     screen: GameScene,
-    navigationOptions: ({ navigation }) => ({
-      title: "Quiz"
-    })
+    navigationOptions: {
+      header: null
+    }
   }
 })
 
@@ -61,7 +61,7 @@ export default class App extends React.Component {
               question="LELELELELELE  UASD SADFU YSDUF YSDUF SDF ?"
               answer="LD SIDJ IDFG IHDSFG IHDFG "
               goNext={() => {
-                console.log("ok!")
+                return false
               }}
             />
           )}

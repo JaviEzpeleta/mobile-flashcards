@@ -24,8 +24,6 @@ import {
 
 class DeckList extends Component {
   componentDidMount() {
-    console.log("THIS IS THE RENDER PART")
-
     // clearAll()
     fetchDecks()
       .then(decks => {
@@ -47,10 +45,6 @@ class DeckList extends Component {
       .catch(e => {
         console.log(e)
       })
-  }
-
-  componentDidUpdate() {
-    console.log("THIS IS THE UPDATE PART")
   }
 
   state = {

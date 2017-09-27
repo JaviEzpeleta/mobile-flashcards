@@ -30,6 +30,10 @@ class DeckDetailScreen extends Component {
     this.props.navigation.navigate("Home")
   }
 
+  componentDidUpdate() {
+    console.log("UPDATE!! 💚")
+  }
+
   render() {
     const { deck } = this.props
     const key = deck.key
