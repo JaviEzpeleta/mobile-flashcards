@@ -4,6 +4,7 @@ import {
   Text,
   H1,
   H2,
+  H3,
   Button,
   Header,
   Footer,
@@ -76,7 +77,7 @@ export default class FinalGameScene extends Component {
     const lottieFile = this.getAnimationFile()
 
     return (
-      <View style={{ flex: 1 }}>
+      <Container>
         <Header>
           <Left>
             <Button transparent onPress={() => this.goBack()}>
@@ -88,33 +89,36 @@ export default class FinalGameScene extends Component {
           </Body>
           <Right />
         </Header>
+        <Body style={{ flex: 1, marginTop: 90 }}>
+          <View>
+            <H1>Great Job!</H1>
+          </View>
 
-        <Container>
+          <View style={{ height: 300, width: 300 }}>
+            <Animation
+              style={{
+                width: lottieFile.width,
+                height: lottieFile.heigth,
+                marginTop: 15
+              }}
+              source={lottieFile.file}
+              progress={this.state.progress}
+            />
+          </View>
+          <H2>
+            {this.props.points.toString()} of {this.props.total.toString()}
+          </H2>
           <Body>
-            <View>
-              <H2>Great Job!</H2>
-            </View>
-
-            <View style={{ height: 300, width: 300 }}>
-              <Animation
-                style={{
-                  width: lottieFile.width,
-                  height: lottieFile.heigth,
-                  marginTop: 20
-                }}
-                source={lottieFile.file}
-                progress={this.state.progress}
-              />
-            </View>
-            <H2>
-              {this.props.points.toString()} of {this.props.total.toString()}
-            </H2>
-            <Button onPress={() => this.props.resetGame()}>
-              <Text>Try it again!</Text>
+            <Button
+              onPress={() => this.props.resetGame()}
+              style={{ padding: 28, margin: 15 }}
+            >
+              <Icon name="md-refresh" style={{ padding: 0, margin: 0 }} />
+              <H3 style={{ color: "#FFF" }}>Try it again!</H3>
             </Button>
           </Body>
-        </Container>
-      </View>
+        </Body>
+      </Container>
     )
   }
 }
