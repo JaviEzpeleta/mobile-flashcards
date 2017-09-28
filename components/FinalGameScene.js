@@ -30,28 +30,54 @@ export default class FinalGameScene extends Component {
   }
 
   getAnimationFile = () => {
-    return {
-      width: 300,
-      heigth: 200,
-      file: require("./../utils/animations/trophy.json")
-    }
-
     const points = this.props.points
     const questions = this.props.total
 
     let finalScore = 0
     if (points > 0) {
-      finalScore = questions / points
+      finalScore = points / questions
     }
-    if (finalScore === 0) return require("./../utils/animations/shrug.json")
+
+    console.log(finalScore + " FINAL")
+
+    if (finalScore === 0)
+      return {
+        message: "0 points? Dude?",
+        width: 300,
+        heigth: 300,
+        file: require("./../utils/animations/shrug.json")
+      }
     if (finalScore <= 0.15)
-      return require("./../utils/animations/emoji_shock.json")
+      return {
+        message: "C'mon! You can do way better!!",
+        width: 300,
+        heigth: 300,
+        file: require("./../utils/animations/emoji_shock.json")
+      }
+
     if (finalScore <= 0.4)
-      return require("./../utils/animations/cloud_disconnection.json")
+      return {
+        message: "Hey! You can do better!!",
+        width: 300,
+        heigth: 300,
+        file: require("./../utils/animations/cloud_disconnection.json")
+      }
     if (finalScore <= 0.5)
-      return require("./../utils/animations/emoji_wink.json")
-    if (finalScore <= 0.8) return require("./../utils/animations/star.json")
+      return {
+        message: "Half of the points. Nice!",
+        width: 300,
+        heigth: 300,
+        file: require("./../utils/animations/emoji_wink.json")
+      }
+    if (finalScore <= 0.8)
+      return {
+        message: "Great job!",
+        width: 300,
+        heigth: 300,
+        file: require("./../utils/animations/star.json")
+      }
     return {
+      message: "You nailed it!!! YAY!!",
       width: 300,
       heigth: 200,
       file: require("./../utils/animations/trophy.json")
@@ -91,7 +117,7 @@ export default class FinalGameScene extends Component {
         </Header>
         <Body style={{ flex: 1, marginTop: 90 }}>
           <View>
-            <H1>Great Job!</H1>
+            <H1>{lottieFile.message}</H1>
           </View>
 
           <View style={{ height: 300, width: 300 }}>
