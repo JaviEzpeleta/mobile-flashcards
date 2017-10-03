@@ -79,7 +79,7 @@ export default class FinalGameScene extends Component {
     return {
       message: "You nailed it!!! YAY!!",
       width: 300,
-      heigth: 200,
+      heigth: 230,
       file: require("./../utils/animations/trophy.json")
     }
   }

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, Animated } from "react-native"
+import { View, Animated, Easing } from "react-native"
 import {
   Text,
   H1,
@@ -18,11 +18,24 @@ export default class Flashcard extends Component {
     showingAnswer: false,
     cardFade: new Animated.Value(0),
     cardScale: new Animated.Value(0),
-    nextButtonOpacity: new Animated.Value(0)
+    cardRotationY: new Animated.Value(59),
+    nextButtonOpacity: new Animated.Value(0),
+    spinValue: new Animated.Value(0)
   }
 
   showAnswer = () => {
-    this.setState({ showingAnswer: true })
+    setTimeout(
+      function() {
+        this.setState({ showingAnswer: true })
+      }.bind(this),
+      200
+    )
+
+    Animated.timing(this.state.spinValue, {
+      toValue: 1,
+      duration: 400,
+      easing: Easing.linear
+    }).start()
   }
 
   showCard = () => {
@@ -88,16 +101,23 @@ export default class Flashcard extends Component {
   goNextActions = () => {
     this.hideCardContent()
     this.removeCard()
+    this.setState({ showingAnswer: false, spinValue: new Animated.Value(0) })
     this.props.goNext()
   }
 
   render() {
+    const spin = this.state.spinValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ["0deg", "180deg"]
+    })
+
     const {
       showingAnswer,
       cardFade,
       cardScale,
       nextButtonOpacity,
-      hideCardContent
+      hideCardContent,
+      cardRotationY
     } = this.state
     const { question, answer, goNext } = this.props
     const { goNextActions } = this
@@ -106,12 +126,13 @@ export default class Flashcard extends Component {
         <Animated.View
           style={{
             opacity: cardFade,
-            transform: [{ scale: cardScale }]
+            /*            transform: [{rotate: '90deg'}] */
+            transform: [{ scale: cardScale }, { rotateY: spin }]
           }}
         >
           <Card>
             {hideCardContent ? (
-              <Body style={{ height: 460 }}>
+              <Body style={{ height: 460, transform: [{ rotateY: "90deg" }] }}>
                 <H1
                   style={{
                     marginTop: 120,
@@ -126,7 +147,9 @@ export default class Flashcard extends Component {
             ) : (
               <CardItem style={{ height: 460 }}>
                 {showingAnswer ? (
-                  <Body style={{ padding: 15 }}>
+                  <Body
+                    style={{ padding: 15, transform: [{ rotateY: "180deg" }] }}
+                  >
                     <Text>Question 1 of 6</Text>
                     <Text>Answer:</Text>
                     <H2
@@ -141,7 +164,8 @@ export default class Flashcard extends Component {
                 ) : (
                   <Body style={{ padding: 15 }}>
                     <Text>
-                      Question {this.props.current} of {this.props.total}
+                      Question {this.props.current} of {this.props.total}{" "}
+                      {cardRotationY.toString()}
                     </Text>
                     <H2
                       style={{
