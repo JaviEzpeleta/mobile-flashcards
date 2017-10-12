@@ -102,6 +102,9 @@ export default class FinalGameScene extends Component {
   render() {
     const lottieFile = this.getAnimationFile()
 
+    const pctAchieved =
+      parseInt(this.props.points / this.props.total * 100).toString() + "%"
+
     return (
       <Container>
         <Header>
@@ -115,7 +118,7 @@ export default class FinalGameScene extends Component {
           </Body>
           <Right />
         </Header>
-        <Body style={{ flex: 1, marginTop: 90 }}>
+        <Body style={{ flex: 1, marginTop: 130 }}>
           <View>
             <H1>{lottieFile.message}</H1>
           </View>
@@ -132,17 +135,19 @@ export default class FinalGameScene extends Component {
             />
           </View>
           <H2>
-            {this.props.points.toString()} of {this.props.total.toString()}
+            {this.props.points.toString()} of {this.props.total.toString()}{" "}
+            questions
           </H2>
-          <Body>
+          <H1>Final Score: {pctAchieved}</H1>
+          <View>
             <Button
               onPress={() => this.props.resetGame()}
-              style={{ padding: 28, margin: 15 }}
+              style={{ padding: 28, margin: 45 }}
             >
               <Icon name="md-refresh" style={{ padding: 0, margin: 0 }} />
               <H3 style={{ color: "#FFF" }}>Try it again!</H3>
             </Button>
-          </Body>
+          </View>
         </Body>
       </Container>
     )
