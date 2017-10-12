@@ -20,6 +20,7 @@ import {
 } from "native-base"
 import Animation from "lottie-react-native"
 import * as API from "./../utils/api"
+import { setLocalNotification } from "./../utils/notifications"
 
 export default class FinalGameScene extends Component {
   constructor(props) {
@@ -27,6 +28,10 @@ export default class FinalGameScene extends Component {
     this.state = {
       progress: new Animated.Value(0)
     }
+  }
+
+  componentDidMount() {
+    clearLocalNotification()
   }
 
   getAnimationFile = () => {
@@ -37,8 +42,6 @@ export default class FinalGameScene extends Component {
     if (points > 0) {
       finalScore = points / questions
     }
-
-    console.log(finalScore + " FINAL")
 
     if (finalScore === 0)
       return {

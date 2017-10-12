@@ -36,7 +36,10 @@ const MainNavigator = StackNavigator({
     }
   },
   NewQuestion: {
-    screen: NewQuestionScreen
+    screen: NewQuestionScreen,
+    header: {
+      title: <Text>Add a New Question</Text>
+    }
   },
   NewDeck: {
     screen: NewDeckScreen

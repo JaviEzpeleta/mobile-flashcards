@@ -59,10 +59,8 @@ class GameScene extends Component {
   }
 
   saveStep = () => {
-    /** TODO
-     * : Remove that false!!! **/
     if (
-      false &&
+      this.state.currentQuestion < 0 ||
       this.props.deck.questions.length === this.state.currentQuestion
     ) {
       API.saveLastScreenVisited("home", false)
@@ -85,6 +83,9 @@ class GameScene extends Component {
       this.props.navigation.navigate("DeckDetail", {
         deckIndex: this.props.deck.key
       })
+    })
+    this.setState({
+      currentQuestion: -1
     })
   }
 
@@ -116,7 +117,7 @@ class GameScene extends Component {
           />
         </View>
       )
-    else
+    else if (currentQuestion >= 0)
       return (
         <View>
           <FinalGameScene
@@ -128,6 +129,7 @@ class GameScene extends Component {
           />
         </View>
       )
+    else return <View />
   }
 }
 
