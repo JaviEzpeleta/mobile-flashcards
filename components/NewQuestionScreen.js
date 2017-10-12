@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import { Text, View, StyleSheet, TextInput, Animated } from "react-native"
+import { StyleSheet, TextInput, Animated, ScrollView } from "react-native"
 import { H4, Bubble } from "nachos-ui"
-import { Button } from "native-base"
+import { Container, View, Button, Text } from "native-base"
 import styled from "styled-components/native"
 import { black, white, blue } from "./../utils/colors"
 import { connect } from "react-redux"
@@ -42,42 +42,48 @@ class NewQuestionScreen extends Component {
     const { emptyFieldError, question, answer } = this.state
 
     return (
-      <View>
-        <H4 style={inputStyle}>Enter New QUESTION:</H4>
-        <TextInput
-          multiline={true}
-          numberOfLines={4}
-          style={styles.textInput}
-          placeholder="Question"
-          value={question}
-          onChangeText={question => this.handleChange("question", question)}
-        />
-        <H4 style={inputStyle}>Enter Answer:</H4>
-        <TextInput
-          multiline={true}
-          numberOfLines={4}
-          style={styles.textInput}
-          placeholder="Question"
-          value={answer}
-          onChangeText={answer => this.handleChange("answer", answer)}
-        />
-        <NewDeckSubmitButtonStyledComponent>
-          <Button onPress={() => this.handleSubmit()}>
-            <Text>CREATE QUESTION</Text>
-          </Button>
-          {emptyFieldError && (
-            <Animated.View>
-              <Bubble
-                style={{ marginTop: 55, marginRight: 38 }}
-                arrowPosition="top"
-                color="#ff9c00"
-              >
-                Name can't be empty!
-              </Bubble>
-            </Animated.View>
-          )}
-        </NewDeckSubmitButtonStyledComponent>
-      </View>
+      <Container>
+        <ScrollView scrollEnabled={false} contentContainerStyle={styles.main}>
+          <H4 style={inputStyle}>Enter New QUESTION:</H4>
+          <TextInput
+            multiline={true}
+            numberOfLines={4}
+            style={styles.textInput}
+            placeholder="Enter New Question"
+            value={question}
+            onChangeText={question => this.handleChange("question", question)}
+          />
+          <H4 style={inputStyle}>Enter Answer:</H4>
+          <TextInput
+            multiline={true}
+            numberOfLines={4}
+            style={styles.textInput}
+            placeholder="Enter the text for the corret answer"
+            value={answer}
+            onChangeText={answer => this.handleChange("answer", answer)}
+          />
+          <NewDeckSubmitButtonStyledComponent>
+            <Button onPress={() => this.handleSubmit()}>
+              <Text>CREATE QUESTION</Text>
+            </Button>
+            {emptyFieldError && (
+              <Animated.View>
+                <Bubble
+                  style={{
+                    marginTop: 5,
+                    marginRight: 38,
+                    paddingTop: 2
+                  }}
+                  arrowPosition="top"
+                  color="#f44b42"
+                >
+                  Please enter the question and the answer!
+                </Bubble>
+              </Animated.View>
+            )}
+          </NewDeckSubmitButtonStyledComponent>
+        </ScrollView>
+      </Container>
     )
   }
 }
@@ -90,17 +96,13 @@ const styles = StyleSheet.create({
     backgroundColor: white,
     padding: 8,
     fontSize: 18,
-    height: 180
-  },
-  errorMessage: {
-    backgroundColor: "red",
-    marginRight: 15,
-    padding: 6,
-    width: 140
+    height: 160
   }
 })
 const NewDeckSubmitButtonStyledComponent = styled.View`
   height: 90;
+  margin-left: 15;
+  margin-top: 15;
   align-items: flex-end;
   justify-content: flex-start;
 `
