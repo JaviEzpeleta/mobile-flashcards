@@ -150,7 +150,9 @@ export default class Flashcard extends Component {
                   <Body
                     style={{ padding: 15, transform: [{ rotateY: "180deg" }] }}
                   >
-                    <Text>Question 1 of 6</Text>
+                    <Text>
+                      Question {this.props.current} of {this.props.total}
+                    </Text>
                     <Text>Answer:</Text>
                     <H2
                       style={{
@@ -164,8 +166,7 @@ export default class Flashcard extends Component {
                 ) : (
                   <Body style={{ padding: 15 }}>
                     <Text>
-                      Question {this.props.current} of {this.props.total}{" "}
-                      {cardRotationY.toString()}
+                      Question {this.props.current} of {this.props.total}
                     </Text>
                     <H2
                       style={{
@@ -181,7 +182,8 @@ export default class Flashcard extends Component {
                         flexDirection: "row",
                         alignItems: "stretch",
                         alignSelf: "stretch",
-                        justifyContent: "space-between"
+                        justifyContent: "space-between",
+                        marginTop: "auto"
                       }}
                     >
                       <Button danger onPress={() => this.showAnswer()}>
