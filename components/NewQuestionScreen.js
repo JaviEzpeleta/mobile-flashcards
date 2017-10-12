@@ -43,9 +43,7 @@ class NewQuestionScreen extends Component {
 
     return (
       <View>
-        <H4 style={inputStyle}>
-          Enter New QUESTION for deck {this.props.deckKey}:
-        </H4>
+        <H4 style={inputStyle}>Enter New QUESTION:</H4>
         <TextInput
           multiline={true}
           numberOfLines={4}
@@ -103,8 +101,8 @@ const styles = StyleSheet.create({
 })
 const NewDeckSubmitButtonStyledComponent = styled.View`
   height: 90;
-  alignItems: flex-end;
-  justifyContent: flex-start;
+  align-items: flex-end;
+  justify-content: flex-start;
 `
 function mapStateToProps(state, { navigation }) {
   const { deckKey } = navigation.state.params
