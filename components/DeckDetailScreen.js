@@ -49,32 +49,51 @@ class DeckDetailScreen extends Component {
           <Right />
         </Header>
 
-        <Content>
-          <H1>{deck.name}</H1>
-          <H2>{deck.questions.length.toString()} questions</H2>
-          <Button
-            onPress={() =>
-              this.props.navigation.navigate("NewQuestion", {
-                deckKey: key
-              })}
-          >
-            <Text>Add Question</Text>
-          </Button>
-        </Content>
+        <Body
+          style={{
+            alignItems: "stretch",
+            alignSelf: "stretch",
+            padding: 40,
+            justifyContent: "space-between"
+          }}
+        >
+          <View style={{ marginTop: 14 }}>
+            <H3>deck name:</H3>
+            <H1>{deck.name}</H1>
+            <H3>{deck.questions.length.toString()} questions</H3>
+          </View>
 
-        <Footer>
-          <FooterTab>
+          <Footer
+            style={{
+              justifyContent: "center",
+              backgroundColor: null,
+              borderTopWidth: null
+            }}
+          >
             <Button
-              full
+              onPress={() =>
+                this.props.navigation.navigate("NewQuestion", {
+                  deckKey: key
+                })}
+            >
+              <Text>➕ Add Question</Text>
+            </Button>
+          </Footer>
+        </Body>
+        {deck.questions.length > 0 && (
+          <Footer style={{ height: 68, padding: 12 }}>
+            <Button
+              success
+              style={{ padding: 30, height: 44 }}
               onPress={() =>
                 this.props.navigation.navigate("Game", {
                   deckKey: key
                 })}
             >
-              <Text>Start the game!</Text>
+              <H3 style={{ color: "#FFF" }}>🚀 TAKE THE QUIZ</H3>
             </Button>
-          </FooterTab>
-        </Footer>
+          </Footer>
+        )}
       </Container>
     )
   }
