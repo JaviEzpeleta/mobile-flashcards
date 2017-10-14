@@ -24,14 +24,14 @@ function MFStatusBar({ backgroundColor, ...props }) {
 
 const HomeScreenStyledComponent = styled.View`
   flex: 1;
-  backgroundColor: ${blue};
+  background-color: ${blue};
 `
 
 const HomeFooterStyledComponent = styled.View`
   height: 40;
-  backgroundColor: ${white};
-  alignItems: flex-end;
-  justifyContent: center;
+  background-color: ${white};
+  align-items: flex-end;
+  justify-content: center;
 `
 class HomeScreen extends Component {
   state = {
