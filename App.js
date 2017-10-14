@@ -15,14 +15,12 @@ import NewQuestionScreen from "./components/NewQuestionScreen"
 import DeckDetailScreen from "./components/DeckDetailScreen"
 import GameScene from "./components/GameScene"
 import Flashcard from "./components/Flashcard"
-
-const Left = goBack => (
-  <TouchableHighlight onPress={goBack}>
-    <Text> THIS SI JAVI</Text>
-  </TouchableHighlight>
-)
+import OnBoarding from "./components/OnBoarding"
 
 const MainNavigator = StackNavigator({
+  OnBoarding: {
+    screen: OnBoarding
+  },
   Home: {
     screen: HomeScreen,
     navigationOptions: {
@@ -54,21 +52,10 @@ const MainNavigator = StackNavigator({
 
 export default class App extends React.Component {
   render() {
-    const showFlashCard = false
-
     return (
       <Provider store={createStore(reducer)}>
         <View style={{ flex: 1 }}>
-          {showFlashCard && (
-            <Flashcard
-              question="LELELELELELE  UASD SADFU YSDUF YSDUF SDF ?"
-              answer="LD SIDJ IDFG IHDSFG IHDFG "
-              goNext={() => {
-                return false
-              }}
-            />
-          )}
-          {!showFlashCard && <MainNavigator />}
+          <MainNavigator />
         </View>
       </Provider>
     )
