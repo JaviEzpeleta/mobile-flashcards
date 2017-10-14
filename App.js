@@ -19,7 +19,10 @@ import OnBoarding from "./components/OnBoarding"
 
 const MainNavigator = StackNavigator({
   OnBoarding: {
-    screen: OnBoarding
+    screen: OnBoarding,
+    navigationOptions: {
+      header: null
+    }
   },
   Home: {
     screen: HomeScreen,

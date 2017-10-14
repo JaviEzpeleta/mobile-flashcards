@@ -31,7 +31,7 @@ const screens = [
     title: "React Nanodegree",
     subtitle:
       "I did this for the Udacity React ND. \n (it's awesome) \n \n If you want to learn React, I don't think there's a better place!",
-    bgcolor: "#ff93a8",
+    bgcolor: "#fcb3ec",
     icon: require("./../images/udacity.png")
   },
   {
