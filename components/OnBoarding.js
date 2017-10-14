@@ -14,7 +14,7 @@ import {
 } from "react-native"
 import CircleTransition from "./CircleTransition"
 import Swipe from "./Swipe"
-import { Button, Text, Content } from "native-base"
+import { Button, Text, Content, Body } from "native-base"
 
 const { width: windowWidth } = Dimensions.get("window")
 
@@ -214,9 +214,21 @@ export default class OnBoarding extends Component {
             {this.state.currentSubtitle}
           </Text>
         </Animated.View>
-
+        {this.renderButton()}
         {this.renderNav()}
       </Swipe>
+    )
+  }
+
+  renderButton = () => {
+    return (
+      <View style={styles.launchButton}>
+        <Body>
+          <Button>
+            <Text>Start now!</Text>
+          </Button>
+        </Body>
+      </View>
     )
   }
 
@@ -256,6 +268,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     paddingLeft: 20,
     paddingRight: 20
+  },
+  launchButton: {
+    height: 60
   },
   footer: {
     height: 60,
