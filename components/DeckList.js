@@ -119,7 +119,7 @@ class DeckList extends Component {
         />
       )
     } else {
-      return <NoDecksScreen />
+      return <NoDecksScreen navigation={this.props.navigation} />
     }
   }
 }

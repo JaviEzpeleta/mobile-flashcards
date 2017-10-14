@@ -37,7 +37,6 @@ export function setLocalNotification() {
             let today = new Date()
             today.setDate(today.getDate())
             today.setHours(19, 0, 0)
-            console.log(today)
 
             const notification = createNotification()
 
