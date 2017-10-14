@@ -15,6 +15,7 @@ import {
 import CircleTransition from "./CircleTransition"
 import Swipe from "./Swipe"
 import { Button, Text, Content, Body } from "native-base"
+import { saveOnboardingSeen } from "./../utils/api"
 
 const { width: windowWidth } = Dimensions.get("window")
 
@@ -43,6 +44,10 @@ const screens = [
   }
 ]
 export default class OnBoarding extends Component {
+  componentWillMount() {
+    saveOnboardingSeen()
+  }
+
   constructor(props) {
     super(props)
     this.state = {
@@ -224,7 +229,7 @@ export default class OnBoarding extends Component {
     return (
       <View style={styles.launchButton}>
         <Body>
-          <Button>
+          <Button onPress={() => this.props.navigation.navigate("Home")}>
             <Text>Start now!</Text>
           </Button>
         </Body>

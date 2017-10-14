@@ -4,6 +4,7 @@ import { generateId, objectToArray } from "./utils"
 const DECKS_STORAGE_KEY = "mobile-flashcards:decks"
 const QUESTIONS_STORAGE_KEY = "mobile-flashcards:questions"
 const LAST_SCREEN_VISITED_KEY = "mobile-flashcards:lastScreenVisitedKey"
+const ONBOARDING_VISITED_KEY = "mobile-flashcards:onboardingVisitedKey"
 
 export const clearAll = () => {
   AsyncStorage.clear()
@@ -32,6 +33,13 @@ export function fetchDecks() {
   })
 }
 
+export function getUnboardingSeen() {
+  return AsyncStorage.getItem(ONBOARDING_VISITED_KEY).then(seen => {
+    if (seen) return true
+    else return false
+  })
+}
+
 export function saveLastScreenVisited(value, id, points = 0, currentCard = 0) {
   return AsyncStorage.setItem(
     LAST_SCREEN_VISITED_KEY,
@@ -43,6 +51,11 @@ export function saveLastScreenVisited(value, id, points = 0, currentCard = 0) {
     })
   )
 }
+
+export function saveOnboardingSeen() {
+  return AsyncStorage.setItem(ONBOARDING_VISITED_KEY, JSON.stringify(true))
+}
+
 export function getLastScreenVisited() {
   return AsyncStorage.getItem(LAST_SCREEN_VISITED_KEY).then(item =>
     JSON.parse(item)

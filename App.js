@@ -16,14 +16,18 @@ import DeckDetailScreen from "./components/DeckDetailScreen"
 import GameScene from "./components/GameScene"
 import Flashcard from "./components/Flashcard"
 import OnBoarding from "./components/OnBoarding"
+import * as API from "./utils/api"
 
-const MainNavigator = StackNavigator({
+const OnboardingScreen = {
   OnBoarding: {
     screen: OnBoarding,
     navigationOptions: {
       header: null
     }
-  },
+  }
+}
+
+const StackScreens = {
   Home: {
     screen: HomeScreen,
     navigationOptions: {
@@ -51,15 +55,25 @@ const MainNavigator = StackNavigator({
       header: null
     }
   }
+}
+
+let AllScreens = false
+let MainNavigator = false
+
+API.getUnboardingSeen().then(seen => {
+  if (seen) {
+    AllScreens = StackScreens
+  } else {
+    AllScreens = Object.assign(OnboardingScreen, StackScreens)
+  }
+  MainNavigator = StackNavigator(AllScreens)
 })
 
 export default class App extends React.Component {
   render() {
     return (
       <Provider store={createStore(reducer)}>
-        <View style={{ flex: 1 }}>
-          <MainNavigator />
-        </View>
+        <View style={{ flex: 1 }}>{AllScreens && <MainNavigator />}</View>
       </Provider>
     )
   }
