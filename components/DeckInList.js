@@ -7,7 +7,6 @@ import {
   TouchableOpacity
 } from "react-native"
 import { black, red } from "../utils/colors"
-import { H2 } from "nachos-ui"
 
 export default class DeckInList extends Component {
   state = {
@@ -30,21 +29,19 @@ export default class DeckInList extends Component {
       duration: 500
     }).start()
   }
-
-  animate = () => {
-    /* disabled for now.. not working as I would expect...
-    Animated.timing(this.state.grow, {
-      toValue: 100,
-      duration: 250
-    }).start()
-    */
-  }
   render() {
     let { fadeAnim, deckInListMarginBottom, grow } = this.state
 
     const cardTitle = {
+      fontSize: 28,
       color: black,
-      fontWeight: "700"
+      fontWeight: "800",
+      marginBottom: 0,
+      paddingBottom: 5
+    }
+    const questionsCount = {
+      fontSize: 20,
+      fontWeight: "200"
     }
 
     const { name, questions, deckIndex } = this.props
@@ -62,14 +59,13 @@ export default class DeckInList extends Component {
       >
         <TouchableOpacity
           onPress={() => {
-            this.animate()
             this.props.navigation.navigate("DeckDetail", {
               deckIndex: deckIndex
             })
           }}
         >
-          <H2 style={cardTitle}>{name}</H2>
-          <Text>{questions} questions</Text>
+          <Text style={cardTitle}>{name}</Text>
+          <Text style={questionsCount}>{questions} questions</Text>
         </TouchableOpacity>
       </Animated.View>
     )
@@ -79,12 +75,11 @@ export default class DeckInList extends Component {
 const styles = StyleSheet.create({
   card: {
     margin: 15,
-    borderRadius: 8,
     backgroundColor: "#fff",
-    shadowOffset: { width: 0, height: 0 },
+    shadowOffset: { width: 0, height: 10 },
     shadowColor: "black",
-    shadowRadius: 5,
-    shadowOpacity: 0.4,
+    shadowRadius: 2,
+    shadowOpacity: 0.2,
     padding: 15,
     paddingBottom: 25
   }
