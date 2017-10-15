@@ -28,7 +28,6 @@ class DeckList extends Component {
     fetchDecks()
       .then(decks => {
         this.props.setDecks(decks)
-
         getLastScreenVisited().then(value => {
           if (value && value.page === "deckDetail") {
             this.props.navigation.navigate("DeckDetail", {
@@ -77,6 +76,12 @@ class DeckList extends Component {
     this.setState({ isRefreshing: false })
   }
 
+  sortDecksByChronologicalOrder(decks) {
+    return decks.sort(function(a, b) {
+      return a.created - b.created
+    })
+  }
+
   render() {
     const text = {
       margin: 15,
@@ -85,10 +90,12 @@ class DeckList extends Component {
       fontWeight: "700"
     }
 
-    const { decks } = this.props
+    let { decks } = this.props
     const { isRefreshing } = this.state
 
     if (decks.length > 0) {
+      decks = this.sortDecksByChronologicalOrder(decks)
+
       return (
         <FlatList
           onScroll={this.handleScroll}
