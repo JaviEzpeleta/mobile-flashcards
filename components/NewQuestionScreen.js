@@ -46,6 +46,7 @@ class NewQuestionScreen extends Component {
         <ScrollView scrollEnabled={false} contentContainerStyle={styles.main}>
           <H4 style={inputStyle}>Enter New QUESTION:</H4>
           <TextInput
+            autoFocus
             multiline={true}
             numberOfLines={4}
             style={styles.textInput}

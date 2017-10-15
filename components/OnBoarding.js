@@ -37,6 +37,16 @@ const screens = [
   },
   {
     id: 2,
+    title: "How it works",
+    subtitle: `1 - 👷 Create decks and add questions.
+    2- 🚀 Start the quiz!
+    3 - 🤔 If you don't know the answer, the card will flip and show you the answer!
+    4 - 😎 Depending on your final score, you'll see something different`,
+    bgcolor: "#818ff4",
+    icon: require("./../images/how-it-works.png")
+  },
+  {
+    id: 3,
     title: "Create Decks & Learn!",
     subtitle: "Use this app now! \n Create decks and learn cool stuff!",
     bgcolor: "#8cd183",
