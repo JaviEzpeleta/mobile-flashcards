@@ -1,13 +1,15 @@
 import React, { Component } from "react"
-import { StyleSheet, Text, View, StatusBar, Dimensions } from "react-native"
+import { StyleSheet, View, StatusBar, Dimensions } from "react-native"
 import styled from "styled-components/native"
-import { Button, Spinner } from "nachos-ui"
+import { Spinner } from "nachos-ui"
 import DeckList from "./DeckList"
-import { blue, black, white, red } from "./../utils/colors"
+import { black, white, red } from "./../utils/colors"
 import { Constants } from "expo"
 import { connect } from "react-redux"
 import * as API from "./../utils/api"
 import { setDecks } from "./../actions"
+import { Button, Text } from "native-base"
+import Icon from "react-native-vector-icons/FontAwesome"
 
 function MFStatusBar({ backgroundColor, ...props }) {
   return (
@@ -22,16 +24,14 @@ function MFStatusBar({ backgroundColor, ...props }) {
   )
 }
 
-const HomeScreenStyledComponent = styled.View`
-  flex: 1;
-  background-color: ${blue};
-`
+const HomeScreenStyledComponent = styled.View`flex: 1;`
 
 const HomeFooterStyledComponent = styled.View`
-  height: 40;
+  height: 60;
   background-color: ${white};
   align-items: flex-end;
   justify-content: center;
+  flex-direction: row;
 `
 class HomeScreen extends Component {
   state = {
@@ -39,33 +39,23 @@ class HomeScreen extends Component {
   }
 
   render() {
-    const deleteDecksButton = {
-      alignItems: "center",
-      justifyContent: "center",
-      position: "absolute",
-      backgroundColor: red,
-      borderRadius: 6,
-      top: -15,
-      left: -370,
-      width: 190,
-      height: 30
-    }
+    const deleteIcon = (
+      <Icon name="trash" size={22} color="#FFF" style={{ marginLeft: 20 }} />
+    )
+    const addIcon = (
+      <Icon name="plus" size={20} color="#FFF" style={{ marginLeft: 20 }} />
+    )
 
-    const newDeckButton = {
-      width: 160,
-      margin: 5,
-      alignItems: "center",
-      justifyContent: "center",
-      height: 30,
-      backgroundColor: blue,
-      borderRadius: 6
+    const homeFooterButton = {
+      marginTop: 8,
+      marginRight: 20,
+      marginLeft: 20
     }
-
     const { listScrollPosition } = this.props
 
     return (
       <HomeScreenStyledComponent>
-        <MFStatusBar backgroundColor={blue} barStyle="dark-content" />
+        <MFStatusBar barStyle="dark-content" />
 
         <View
           style={{
@@ -81,20 +71,22 @@ class HomeScreen extends Component {
         <DeckList navigation={this.props.navigation} />
         <HomeFooterStyledComponent>
           <Button
-            textStyle={{ color: black }}
-            style={newDeckButton}
-            onPress={() => this.props.navigation.navigate("NewDeck", {})}
-          >
-            + New Deck
-          </Button>
-          <Button
-            textStyle={{ color: white }}
-            style={deleteDecksButton}
+            style={homeFooterButton}
+            warning
             onPress={() => {
               this.props.clearAll()
             }}
           >
-            + Delete All Decks
+            {deleteIcon}
+            <Text>delete storage</Text>
+          </Button>
+          <Button
+            style={homeFooterButton}
+            success
+            onPress={() => this.props.navigation.navigate("NewDeck", {})}
+          >
+            {addIcon}
+            <Text>New Deck</Text>
           </Button>
         </HomeFooterStyledComponent>
       </HomeScreenStyledComponent>
@@ -121,5 +113,3 @@ function mapDispatchToProps(dispatch) {
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
-
-//             onPress={() => this.props.navigation.navigate("NewDeckScreen")}
