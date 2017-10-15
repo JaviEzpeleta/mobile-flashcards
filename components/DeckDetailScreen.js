@@ -5,8 +5,6 @@ import * as API from "./../utils/api"
 import {
   Container,
   Content,
-  H1,
-  H2,
   H3,
   Text,
   Button,
@@ -35,6 +33,9 @@ class DeckDetailScreen extends Component {
   render() {
     const { deck } = this.props
     const key = deck.key
+
+    const deckTitle = { fontSize: 37, fontWeight: "700" }
+
     return (
       <Container>
         <Header>
@@ -59,7 +60,7 @@ class DeckDetailScreen extends Component {
         >
           <View style={{ marginTop: 14 }}>
             <H3>deck name:</H3>
-            <H1>{deck.name}</H1>
+            <Text style={deckTitle}>{deck.name}</Text>
             <H3>{deck.questions.length.toString()} questions</H3>
           </View>
 
@@ -76,7 +77,7 @@ class DeckDetailScreen extends Component {
                   deckKey: key
                 })}
             >
-              <Text>➕ Add Question</Text>
+              <Text>➕ ADD QUESTION</Text>
             </Button>
           </Footer>
         </Body>
