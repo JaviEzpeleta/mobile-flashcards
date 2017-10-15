@@ -30,3 +30,6 @@ yarn start
 - Press `i` to open iOS emulator.
 - Press `q` to display QR code. Then scan the code with your EXPO mobile from your device.
 
+# Try it using EXPO!
+
+![flaschards QR code](https://raw.githubusercontent.com/JaviEzpeleta/mobile-flashcards/master/images/flashcards-qr-code-for-expo.png)
