@@ -33,3 +33,5 @@ yarn start
 # Try it using EXPO!
 
 ![flaschards QR code](https://raw.githubusercontent.com/JaviEzpeleta/mobile-flashcards/master/images/flashcards-qr-code-for-expo.png)
+
+*[It currently works on iOS only. Sorry for the inconvenience]*
