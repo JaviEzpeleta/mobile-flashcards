@@ -1,11 +1,12 @@
 import React, { Component } from "react"
-import { Text, View, StyleSheet, TextInput, Animated } from "react-native"
-import { H4, Button, Bubble } from "nachos-ui"
+import { View, StyleSheet, TextInput, Animated } from "react-native"
+import { Bubble } from "nachos-ui"
 import styled from "styled-components/native"
 import { black, white, blue } from "./../utils/colors"
 import { connect } from "react-redux"
 import * as API from "./../utils/api"
 import { setDecks } from "./../actions"
+import { H1, Button, Text } from "native-base"
 
 /*TODO: animate the «can't be empty» Bubble,
   when it comes...and when it goes too! */
@@ -31,41 +32,29 @@ class NewDeckScreen extends Component {
   }
 
   render() {
-    const newDeckButton = {
-      width: 240,
-      margin: 15,
-      alignItems: "center",
-      justifyContent: "center",
-      height: 30,
-      backgroundColor: blue,
-      borderRadius: 6
-    }
-    const buttonStyle = { color: black, fontSize: 14 }
+    const marginStyle = { margin: 15 }
     const inputStyle = { marginTop: 15, marginLeft: 15, color: black }
     const { emptyFieldError } = this.state
     return (
       <View>
-        <H4 style={inputStyle}>Enter New Deck Name:</H4>
+        <H1 style={marginStyle}>Enter New Deck Name:</H1>
         <TextInput
+          autoFocus
           style={styles.textInput}
           placeholder="New Deck Name"
           value={this.state.newName}
           onChangeText={newName => this.handleChange(newName)}
         />
         <NewDeckSubmitButtonStyledComponent>
-          <Button
-            textStyle={buttonStyle}
-            style={newDeckButton}
-            onPress={() => this.handleSubmit()}
-          >
-            CREATE DECK
+          <Button style={marginStyle} onPress={() => this.handleSubmit()}>
+            <Text>CREATE DECK</Text>
           </Button>
           {emptyFieldError && (
             <Animated.View>
               <Bubble
-                style={{ marginTop: 55, marginRight: 38 }}
                 arrowPosition="top"
-                color="#ff9c00"
+                color="#d60808"
+                style={{ marginRight: 15 }}
               >
                 Name can't be empty!
               </Bubble>
@@ -94,8 +83,9 @@ const styles = StyleSheet.create({
 })
 const NewDeckSubmitButtonStyledComponent = styled.View`
   height: 90;
-  alignItems: flex-end;
-  justifyContent: flex-start;
+  align-items: flex-end;
+  flex-direction: row;
+  justify-content: space-between;
 `
 
 function mapDispatchToProps(dispatch, { navigation }) {
