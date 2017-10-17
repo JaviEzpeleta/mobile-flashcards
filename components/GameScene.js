@@ -23,9 +23,7 @@ class GameScene extends Component {
   }
 
   goNext = () => {
-    this.setState({
-      currentQuestion: this.state.currentQuestion + 1
-    })
+    this.setState(state => ({ currentQuestion: state.currentQuestion + 1 }))
   }
 
   resetGame = () => {
