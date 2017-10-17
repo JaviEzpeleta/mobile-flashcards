@@ -35,8 +35,7 @@ export function fetchDecks() {
 
 export function getUnboardingSeen() {
   return AsyncStorage.getItem(ONBOARDING_VISITED_KEY).then(seen => {
-    if (seen) return true
-    else return false
+    return !!seen
   })
 }
 
