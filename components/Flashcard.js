@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, Animated, Easing } from "react-native"
+import { View, Animated, Easing, StyleSheet } from "react-native"
 import {
   Text,
   H1,
@@ -9,7 +9,8 @@ import {
   Container,
   CardItem,
   Card,
-  Body
+  Body,
+  Footer
 } from "native-base"
 
 export default class Flashcard extends Component {
@@ -164,59 +165,66 @@ export default class Flashcard extends Component {
                     </H2>
                   </Body>
                 ) : (
-                  <Body style={{ padding: 15 }}>
-                    <Text>
-                      Question {this.props.current} of {this.props.total}
-                    </Text>
-                    <H2
-                      style={{
-                        marginTop: 15,
-                        marginBottom: 40
-                      }}
-                    >
-                      {question}
-                    </H2>
-
+                  <View>
                     <View
                       style={{
-                        flexDirection: "row",
-                        alignItems: "stretch",
-                        alignSelf: "stretch",
-                        justifyContent: "space-between",
-                        marginTop: "auto"
+                        flex: 1,
+                        flexDirection: "column"
                       }}
                     >
-                      <Button danger onPress={() => this.showAnswer()}>
-                        <Text>I Don't Know</Text>
-                      </Button>
-                      <Button
-                        success
-                        onPress={() => {
-                          this.props.addPoint()
-                          goNextActions()
+                      <Text>
+                        Question {this.props.current} of {this.props.total}
+                      </Text>
+                      <H2
+                        style={{
+                          marginTop: 15,
+                          marginBottom: 40
                         }}
                       >
-                        <Text>✔️ I got this! </Text>
-                      </Button>
+                        {question}
+                      </H2>
                     </View>
-                  </Body>
+                    <Button onPress={() => this.showAnswer()}>
+                      <Text>Show Answer</Text>
+                    </Button>
+                  </View>
                 )}
               </CardItem>
             )}
           </Card>
         </Animated.View>
         <Animated.View style={{ opacity: nextButtonOpacity }}>
-          <Body style={{ padding: 15 }}>
+          <View style={styles.responseButtons}>
             <Button
+              danger
               onPress={() => {
                 goNextActions()
               }}
             >
-              <Text>NEXT</Text>
+              <Text>I Don't Know</Text>
             </Button>
-          </Body>
+            <Button
+              success
+              onPress={() => {
+                this.props.addPoint()
+                goNextActions()
+              }}
+            >
+              <Text>✔️ I got this! </Text>
+            </Button>
+          </View>
         </Animated.View>
       </Content>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  responseButtons: {
+    flexDirection: "row",
+    alignItems: "stretch",
+    alignSelf: "stretch",
+    justifyContent: "space-between",
+    marginTop: 20
+  }
+})
