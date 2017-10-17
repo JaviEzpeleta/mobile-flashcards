@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleSheet, Text, View, StatusBar, Dimensions } from "react-native"
+import { Text, View, StatusBar, Dimensions } from "react-native"
 import styled from "styled-components/native"
 import { Button, Spinner } from "nachos-ui"
 import reducer from "./reducers"

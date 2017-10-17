@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { StyleSheet, View, StatusBar, Dimensions } from "react-native"
+import { View, StatusBar, Dimensions } from "react-native"
 import styled from "styled-components/native"
 import { Spinner } from "nachos-ui"
 import DeckList from "./DeckList"
