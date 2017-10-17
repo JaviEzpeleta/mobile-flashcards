@@ -33,19 +33,19 @@ const HomeFooterStyledComponent = styled.View`
   justify-content: center;
   flex-direction: row;
 `
+const deleteIcon = (
+  <Icon name="trash" size={22} color="#FFF" style={{ marginLeft: 20 }} />
+)
+const addIcon = (
+  <Icon name="plus" size={20} color="#FFF" style={{ marginLeft: 20 }} />
+)
+
 class HomeScreen extends Component {
   state = {
     listScrollPosition: 0
   }
 
   render() {
-    const deleteIcon = (
-      <Icon name="trash" size={22} color="#FFF" style={{ marginLeft: 20 }} />
-    )
-    const addIcon = (
-      <Icon name="plus" size={20} color="#FFF" style={{ marginLeft: 20 }} />
-    )
-
     const homeFooterButton = {
       marginTop: 8,
       marginRight: 20,
